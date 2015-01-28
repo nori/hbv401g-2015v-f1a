@@ -10,7 +10,8 @@ Fantasy Football simulator
 * Based on performance
 
 # Data/APIs
-* TODO
+* http://www.football-data.org/soccerseasons/354/ranking
+* http://fantasy.premierleague.com/web/api/elements/6/
 
 # Player attributes
 * TODO
