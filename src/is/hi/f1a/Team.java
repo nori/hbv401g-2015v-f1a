@@ -77,7 +77,7 @@ public class Team {
     }
 
     //Finds the "best" player (highest price) from an array of players
-    private Player BestPlayer(ArrayList<Player> players) {
+    private Player bestPlayer(ArrayList<Player> players) {
         int tmp = 0;
         for(int i = 1; i < players.size(); i++) {
             if(players.get(i).getPrice()>= players.get(tmp).getPrice()){
@@ -88,7 +88,7 @@ public class Team {
         return players.get(tmp);
     }
     //Calculates the best starting team
-    public ArrayList<Player> calculateStartingTeam(){
+    public ArrayList<Player> calculateStartingTeam() {
         ArrayList<Player> startingTeam = new ArrayList<Player>();
         ArrayList<Player> goalkeepers = new ArrayList<Player>();
         ArrayList<Player> defenders = new ArrayList<Player>();
@@ -106,19 +106,19 @@ public class Team {
                 forwards.add(player);
         }
 
-        startingTeam.add(BestPlayer(goalkeepers));
+        startingTeam.add(bestPlayer(goalkeepers));
         for(int i = 0; i < 4; i++) {
-            Player tmp = BestPlayer(defenders);
+            Player tmp = bestPlayer(defenders);
             startingTeam.add(tmp);
             defenders.remove(tmp);
         }
         for(int i = 0; i < 4; i++) {
-            Player tmp = BestPlayer(midfielders);
+            Player tmp = bestPlayer(midfielders);
             startingTeam.add(tmp);
             defenders.remove(tmp);
         }
         for(int i = 0; i < 2; i++) {
-            Player tmp = BestPlayer(forwards);
+            Player tmp = bestPlayer(forwards);
             startingTeam.add(tmp);
             defenders.remove(tmp);
         }
