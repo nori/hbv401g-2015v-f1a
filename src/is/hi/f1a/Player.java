@@ -5,7 +5,7 @@ package is.hi.f1a;
  */
 public class Player {
     private String name;
-    private enum Position {
+    public enum Position {
         GOALKEEPER,
         DEFENDER,
         MIDFIELDER,
@@ -15,6 +15,7 @@ public class Player {
     private int goals;
     private int assists;
     private int cleanSheet;
+    private int goalsConceded;
     private int ownGoals;
     private int yellowCards;
     private int redCards;
@@ -28,8 +29,8 @@ public class Player {
     private Team team;
 
     public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
-                  int yellowCards, int redCards, int minutes, boolean available, double injuryProne,
-                  int injuryLength, int totalPoints, int recentPoints, int games, int price, Team team) {
+                  int yellowCards, int redCards, int minutes,
+                  int totalPoints, int recentPoints, int games, int price, Team team) {
 
         this.name = name;
         this.position = position;
