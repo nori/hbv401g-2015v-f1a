@@ -1,5 +1,7 @@
 package is.hi.f1a;
 
+import java.util.ArrayList;
+
 /**
  * Created by ArnþórHelgi on 3/4/2015.
  */
@@ -8,7 +10,7 @@ public class Team {
     private int wins;
     private int draws;
     private int losses;
-    private ArrayList<Player>ArrayList<Player> players;
+    private ArrayList<Player> players;
     private int points;
     private int goalsScored;
     private int goalsConceded;
@@ -70,13 +72,9 @@ public class Team {
         this.points = points;
     }
     public void addPlayer(Player player) {
-        players.push(player);
+        players.add(player);
     }
     public ArrayList<Player> calculateStartingTeam(){
-        ArrayList<Players> startingTeam = new ArrayList<Playes>();
-
-
-
-        return startingTeam;
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }

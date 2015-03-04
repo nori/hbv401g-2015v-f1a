@@ -40,7 +40,6 @@ public class Player {
         this.yellowCards = yellowCards;
         this.redCards = redCards;
         this.minutes = minutes;
-        this.available = available;
         this.injuryProne = injuryProne;
         this.injuryLength = injuryLength;
         this.totalPoints = totalPoints;
