@@ -19,13 +19,11 @@ public class Player {
         DEFENDER,
         MIDFIELDER,
         FORWARD
-    }
-
+    };
     private Position position;
     private int goals;
     private int assists;
     private int cleanSheet;
-    private int goalsConceded;
     private int ownGoals;
     private int yellowCards;
     private int redCards;
@@ -36,10 +34,11 @@ public class Player {
     private int recentPoints;
     private int games;
     private int price;
+    private Team team;
 
     public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
-                  int yellowCards, int redCards, int minutes,
-                  int totalPoints, int price, int goalsConceded) {
+                  int yellowCards, int redCards, int minutes, boolean available, double injuryProne,
+                  int injuryLength, int totalPoints, int recentPoints, int games, int price, Team team) {
 
         this.name = name;
         this.position = position;
@@ -50,13 +49,13 @@ public class Player {
         this.yellowCards = yellowCards;
         this.redCards = redCards;
         this.minutes = minutes;
+        this.injuryProne = injuryProne;
+        this.injuryLength = injuryLength;
         this.totalPoints = totalPoints;
+        this.recentPoints = recentPoints;
+        this.games = games;
         this.price = price;
-        this.goalsConceded = goalsConceded;
-    }
-
-    public String toString() {
-        return name;
+        this.team = team;
     }
 
     public String getName() {
@@ -188,5 +187,13 @@ public class Player {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

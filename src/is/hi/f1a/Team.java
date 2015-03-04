@@ -1,5 +1,6 @@
 package is.hi.f1a;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -74,7 +75,54 @@ public class Team {
     public void addPlayer(Player player) {
         players.add(player);
     }
+
+    //Finds the "best" player (highest price) from an array of players
+    private Player BestPlayer(ArrayList<Player> players) {
+        int tmp = 0;
+        for(int i = 1; i < players.size(); i++) {
+            if(players.get(i).getPrice()>= players.get(tmp).getPrice()){
+                tmp = i;
+            }
+        }
+
+        return players.get(tmp);
+    }
+    //Calculates the best starting team
     public ArrayList<Player> calculateStartingTeam(){
-        throw new UnsupportedOperationException("Not implemented yet");
+        ArrayList<Player> startingTeam = new ArrayList<Player>();
+        ArrayList<Player> goalkeepers = new ArrayList<Player>();
+        ArrayList<Player> defenders = new ArrayList<Player>();
+        ArrayList<Player> midfielders = new ArrayList<Player>();
+        ArrayList<Player> forwards = new ArrayList<Player>();
+
+        for(Player player : players) {
+            if(player.getPosition() == Player.Position.GOALKEEPER && player.isAvailable())
+                goalkeepers.add(player);
+            else if(player.getPosition() == Player.Position.DEFENDER && player.isAvailable())
+                defenders.add(player);
+            else if(player.getPosition() == Player.Position.MIDFIELDER && player.isAvailable())
+                midfielders.add(player);
+            else
+                forwards.add(player);
+        }
+
+        startingTeam.add(BestPlayer(goalkeepers));
+        for(int i = 0; i < 4; i++) {
+            Player tmp = BestPlayer(defenders);
+            startingTeam.add(tmp);
+            defenders.remove(tmp);
+        }
+        for(int i = 0; i < 4; i++) {
+            Player tmp = BestPlayer(midfielders);
+            startingTeam.add(tmp);
+            defenders.remove(tmp);
+        }
+        for(int i = 0; i < 2; i++) {
+            Player tmp = BestPlayer(forwards);
+            startingTeam.add(tmp);
+            defenders.remove(tmp);
+        }
+
+        return startingTeam;
     }
 }
