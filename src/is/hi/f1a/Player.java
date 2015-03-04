@@ -5,12 +5,22 @@ package is.hi.f1a;
  */
 public class Player {
     private String name;
+
+    public int getGoalsConceded() {
+        return goalsConceded;
+    }
+
+    public void setGoalsConceded(int goalsConceded) {
+        this.goalsConceded = goalsConceded;
+    }
+
     public enum Position {
         GOALKEEPER,
         DEFENDER,
         MIDFIELDER,
         FORWARD
-    };
+    }
+
     private Position position;
     private int goals;
     private int assists;
@@ -26,11 +36,10 @@ public class Player {
     private int recentPoints;
     private int games;
     private int price;
-    private Team team;
 
     public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
                   int yellowCards, int redCards, int minutes,
-                  int totalPoints, int recentPoints, int games, int price, Team team) {
+                  int totalPoints, int price, int goalsConceded) {
 
         this.name = name;
         this.position = position;
@@ -41,13 +50,13 @@ public class Player {
         this.yellowCards = yellowCards;
         this.redCards = redCards;
         this.minutes = minutes;
-        this.injuryProne = injuryProne;
-        this.injuryLength = injuryLength;
         this.totalPoints = totalPoints;
-        this.recentPoints = recentPoints;
-        this.games = games;
         this.price = price;
-        this.team = team;
+        this.goalsConceded = goalsConceded;
+    }
+
+    public String toString() {
+        return name;
     }
 
     public String getName() {
@@ -179,13 +188,5 @@ public class Player {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 }

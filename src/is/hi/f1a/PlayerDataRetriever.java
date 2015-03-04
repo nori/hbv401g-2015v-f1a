@@ -33,19 +33,21 @@ public class PlayerDataRetriever {
         String type_name;
         String team_name;
         int goals_conceded;
-        int goals_scored
+        int goals_scored;
         int yellow_cards;
         int red_cards;
         int assists;
         int clean_sheets;
         int own_goals;
         int minutes;
+        int total_points;
+        int transfers_out;
     }
 
     public static void parsePlayer(String playerJsonString) {
         Gson gson = new Gson();
         JSONPlayer p = gson.fromJson(playerJsonString, JSONPlayer.class);
-        /*
+
         Player player = new Player(p.web_name,
                 typeToPosition(p.type_name),
                 p.goals_scored,
@@ -55,9 +57,11 @@ public class PlayerDataRetriever {
                 p.yellow_cards,
                 p.red_cards,
                 p.minutes,
-                )
-                */
-        //System.out.println(player.web_name);
+                p.total_points,
+                p.transfers_out,
+                p.goals_conceded);
+
+        System.out.println(player);
     }
 
     public static Player.Position typeToPosition(String type) {
