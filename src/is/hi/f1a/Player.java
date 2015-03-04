@@ -39,7 +39,7 @@ public class Player {
 
     public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
                   int yellowCards, int redCards, int minutes,
-                  int totalPoints, int goalsConceded) {
+                  int totalPoints, int price, int goalsConceded) {
         this.name = name;
         this.position = position;
         this.goals = goals;
@@ -49,13 +49,8 @@ public class Player {
         this.yellowCards = yellowCards;
         this.redCards = redCards;
         this.minutes = minutes;
-        this.injuryProne = injuryProne;
-        this.injuryLength = injuryLength;
         this.totalPoints = totalPoints;
-        this.recentPoints = recentPoints;
-        this.games = games;
         this.price = price;
-        this.team = team;
         this.goalsConceded = goalsConceded;
     }
 
