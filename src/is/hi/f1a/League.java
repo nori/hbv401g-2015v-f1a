@@ -2,9 +2,6 @@ package is.hi.f1a;
 
 import java.util.*;
 
-/**
- * Created by arnor on 3/4/15.
- */
 public class League {
     private ArrayList<Team> teams;
     private ArrayList<Game> games;
@@ -12,13 +9,11 @@ public class League {
     private Simulation simulation;
 
     public League() {
-        //throw new UnsupportedOperationException("Not implemented yet");
-        this.games=new ArrayList<Game>();
+        this.games = new ArrayList<Game>();
     }
 
     public void createSchedule() {
-        //throw new UnsupportedOperationException("Not implemented yet");
-        Team arsenal =new Team("Arsenal");
+        Team arsenal = new Team("Arsenal");
         Team chelsea = new Team("Chelsea");
         Team manchesterCity = new Team("Manchester City");
         Team manchesterUnited = new Team("Manchester United");
@@ -28,72 +23,70 @@ public class League {
         Team swansea = new Team("Swansea");
         Team westHam = new Team("West Ham");
         Team stoke = new Team("Stoke");
-        ArrayList<Team> lid = new ArrayList<Team>(Arrays.asList(arsenal,chelsea,manchesterCity,manchesterUnited,southampton,liverpool,tottenham,swansea,westHam,stoke));
-        ArrayList<Game> tempGames=new ArrayList<Game>();
-        for(int i=0;i<9;i++) {
-            for (int j = i+1; j < 10; j++) {
-                Game leikur=new Game(lid.get(i),lid.get(j));
-                tempGames.add(leikur);
+        ArrayList<Team> teams = new ArrayList<Team>(Arrays.asList(arsenal,chelsea,manchesterCity,manchesterUnited,southampton,liverpool,tottenham,swansea,westHam,stoke));
+        ArrayList<Game> tempGames = new ArrayList<Game>();
+
+        for(int i = 0; i < teams.size()-1; i++) {
+            for (int j = i+1; j < teams.size(); j++) {
+                Game game = new Game(teams.get(i), teams.get(j));
+                tempGames.add(game);
             }
         }
 
-        int teljari=0;
-        int j=0;
-        int k=0;
-        boolean m=true;
+        int counter = 0;
+        int j = 0;
+        int k = 0;
         ArrayList<Team> tempTeams = new ArrayList<Team>();
         List<Integer> indexArray=new ArrayList<Integer>();
-        while(m) {
+        int gameCount = teams.size()*(teams.size()-1)/2;
+        int gamesPerRound = teams.size()/2;
+
+        while(games.size() < gameCount) {
             Collections.shuffle(tempGames);
             mainloop:
-            for (int i = 0; i < 9; i++) {
-                while (teljari != 5) {
+            for (int i = 0; i < teams.size()-1; i++) {
+                while (counter != gamesPerRound) {
                     if (tempTeams.indexOf(tempGames.get(j).getHomeTeam()) == -1 && tempTeams.indexOf(tempGames.get(j).getAwayTeam()) == -1) {
                         tempTeams.add(tempGames.get(j).getHomeTeam());
                         tempTeams.add(tempGames.get(j).getAwayTeam());
                         indexArray.add(j);
-                        teljari++;
+                        counter++;
                     }
 
                     j++;
-                    if (j >= tempGames.size() && indexArray.size() < 5) {
+                    if (j >= tempGames.size() && indexArray.size() < gamesPerRound) {
                         k++;
                         j = k;
                         indexArray.clear();
                         tempTeams.clear();
-                        teljari = 0;
+                        counter = 0;
                         if (k >= tempGames.size()-3) {
                             k=0;
                             j=0;
                             games.clear();
                             tempGames.clear();
-                            for(int n=0;n<9;n++) {
-                                for (int q = n+1; q < 10; q++) {
-                                    Game leikur=new Game(lid.get(n),lid.get(q));
+                            for(int n = 0; n < teams.size()-1; n++) {
+                                for (int q = n+1; q < teams.size(); q++) {
+                                    Game leikur = new Game(teams.get(n), teams.get(q));
                                     tempGames.add(leikur);
                                 }
                             }
                             Collections.shuffle(tempGames);
                             break mainloop;
-
                         }
                     }
                 }
-                for (int l = 0; l < 5; l++) {
+                for (int l = 0; l < gamesPerRound; l++) {
                     games.add(tempGames.get(indexArray.get(l).intValue()));
                 }
-                for (int l = 0; l < 5; l++) {
-                    tempGames.remove(indexArray.get(l).intValue() - l);
-
+                for (int l = 0; l < gamesPerRound; l++) {
+                    tempGames.remove(indexArray.get(l) - l);
                 }
                 indexArray.clear();
-                teljari = 0;
+                counter = 0;
                 k = 0;
                 j = 0;
                 tempTeams.clear();
-            }
-            if(games.size()==45){
-                m=false;
             }
         }
     }
