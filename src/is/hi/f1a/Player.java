@@ -5,16 +5,26 @@ package is.hi.f1a;
  */
 public class Player {
     private String name;
-    private enum Position {
+
+    public int getGoalsConceded() {
+        return goalsConceded;
+    }
+
+    public void setGoalsConceded(int goalsConceded) {
+        this.goalsConceded = goalsConceded;
+    }
+
+    public enum Position {
         GOALKEEPER,
         DEFENDER,
         MIDFIELDER,
         FORWARD
-    };
+    }
     private Position position;
     private int goals;
     private int assists;
     private int cleanSheet;
+    private int goalsConceded;
     private int ownGoals;
     private int yellowCards;
     private int redCards;
@@ -28,9 +38,8 @@ public class Player {
     private Team team;
 
     public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
-                  int yellowCards, int redCards, int minutes, boolean available, double injuryProne,
-                  int injuryLength, int totalPoints, int recentPoints, int games, int price, Team team) {
-
+                  int yellowCards, int redCards, int minutes,
+                  int totalPoints, int price, int goalsConceded) {
         this.name = name;
         this.position = position;
         this.goals = goals;
@@ -40,13 +49,13 @@ public class Player {
         this.yellowCards = yellowCards;
         this.redCards = redCards;
         this.minutes = minutes;
-        this.injuryProne = injuryProne;
-        this.injuryLength = injuryLength;
         this.totalPoints = totalPoints;
-        this.recentPoints = recentPoints;
-        this.games = games;
         this.price = price;
-        this.team = team;
+        this.goalsConceded = goalsConceded;
+    }
+
+    public String toString() {
+        return name;
     }
 
     public String getName() {

@@ -11,7 +11,7 @@ public class Simulation {
     }
 
     public void calculateGoals() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        throw new UnsupportedOperationException("Not, implemented yet");
     }
 
     public void calculateInjuries() {
