@@ -15,7 +15,7 @@ public class Team {
     private int goalsScored;
     private int goalsConceded;
 
-    public Team(String name, ArrayList<Player> players){
+    public Team(String name/*, ArrayList<Player> players*/){
         this.players=players;
         this.name=name;
         wins=0;
@@ -46,6 +46,10 @@ public class Team {
 
     public int getPoints() {
         return points;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setWins(int wins) {
