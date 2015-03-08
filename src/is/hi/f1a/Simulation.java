@@ -1,8 +1,5 @@
 package is.hi.f1a;
 
-/**
- * Created by arnor on 3/4/15.
- */
 public class Simulation {
     private Game game;
 
