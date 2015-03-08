@@ -1,8 +1,5 @@
 package is.hi.f1a;
 
-/**
- * Created by Tomas on 04/03/2015.
- */
 public class Player {
     private String name;
 

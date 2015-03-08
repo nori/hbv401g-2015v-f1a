@@ -3,9 +3,6 @@ package is.hi.f1a;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-/**
- * Created by ArnþórHelgi on 3/4/2015.
- */
 public class Team {
     private String name;
     private int wins;
@@ -16,15 +13,15 @@ public class Team {
     private int goalsScored;
     private int goalsConceded;
 
-    public Team(String name/*, ArrayList<Player> players*/){
-        this.players=players;
-        this.name=name;
-        wins=0;
-        draws=0;
-        losses=0;
-        points=0;
-        goalsConceded=0;
-        goalsScored=0;
+    public Team(String name){
+        this.name = name;
+        wins = 0;
+        draws = 0;
+        losses = 0;
+        points = 0;
+        goalsConceded = 0;
+        goalsScored = 0;
+        players = new ArrayList<Player>();
     }
     public int getWins(){
         return wins;
@@ -51,6 +48,13 @@ public class Team {
 
     public String getName() {
         return name;
+    }
+    public String toString() {
+        return name + ". Player count: " + players.size();
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 
     public void setWins(int wins) {

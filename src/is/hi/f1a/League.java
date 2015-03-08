@@ -8,22 +8,12 @@ public class League {
     private int currentRound;
     private Simulation simulation;
 
-    public League() {
+    public League(ArrayList<Team> teams) {
         this.games = new ArrayList<Game>();
+        this.teams = teams;
     }
 
     public void createSchedule() {
-        Team arsenal = new Team("Arsenal");
-        Team chelsea = new Team("Chelsea");
-        Team manchesterCity = new Team("Manchester City");
-        Team manchesterUnited = new Team("Manchester United");
-        Team southampton = new Team("Southampton");
-        Team liverpool = new Team("Liverpool");
-        Team tottenham = new Team("Tottenham");
-        Team swansea = new Team("Swansea");
-        Team westHam = new Team("West Ham");
-        Team stoke = new Team("Stoke");
-        ArrayList<Team> teams = new ArrayList<Team>(Arrays.asList(arsenal,chelsea,manchesterCity,manchesterUnited,southampton,liverpool,tottenham,swansea,westHam,stoke));
         ArrayList<Game> tempGames = new ArrayList<Game>();
 
         for(int i = 0; i < teams.size()-1; i++) {
@@ -101,9 +91,5 @@ public class League {
 
     public ArrayList<Game> getGames() {
         return games;
-    }
-
-    public void addTeam(Team team) {
-        throw new UnsupportedOperationException("Not implemented yet");
     }
 }
