@@ -11,9 +11,10 @@ public class League {
     public League(ArrayList<Team> teams) {
         this.games = new ArrayList<Game>();
         this.teams = teams;
+        createSchedule();
     }
 
-    public void createSchedule() {
+    private void createSchedule() {
         ArrayList<Game> tempGames = new ArrayList<Game>();
 
         for(int i = 0; i < teams.size()-1; i++) {
@@ -87,6 +88,10 @@ public class League {
 
     public Team getTeam(String team) {
         throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    public ArrayList<Team> getTeams() {
+        return teams;
     }
 
     public ArrayList<Game> getGames() {

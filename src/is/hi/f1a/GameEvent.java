@@ -1,8 +1,5 @@
 package is.hi.f1a;
 
-/**
- * Created by ArnþórHelgi on 3/4/2015.
- */
 public class GameEvent {
     private int minute;
     private Player player;
@@ -17,10 +14,10 @@ public class GameEvent {
     }
     private Event event;
 
-    public GameEvent(int minute,Player player, Event event) {
-        this.minute=minute;
-        this.player=player;
-        this.event=event;
+    public GameEvent(int minute, Player player, Event event) {
+        this.minute = minute;
+        this.player = player;
+        this.event = event;
     }
 
     public int getMinute() {

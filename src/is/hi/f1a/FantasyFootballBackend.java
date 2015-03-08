@@ -1,28 +1,22 @@
 package is.hi.f1a;
 
-/**
- * Created by arnor on 3/4/15.
- */
+import java.util.ArrayList;
+
 public class FantasyFootballBackend {
     private League league;
 
-    public FantasyFootballBackend() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public FantasyFootballBackend() throws Exception {
+        ArrayList<Team> teams = DataRetriever.getTeams();
+        DataRetriever.addPlayers(teams);
+
+        league = new League(teams);
     }
 
-    public Team getTeam(String team) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public League getLeague() {
+        return league;
     }
 
-    private void downloadTeamData() {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    private void downloadPlayerData() {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    private void updateRound() {
+    private void nextRound() {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 }

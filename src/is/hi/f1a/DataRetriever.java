@@ -189,6 +189,10 @@ public class DataRetriever {
     public static Player.Position typeToPosition(String type) {
         if(type.equals("Defender")) {
             return Player.Position.DEFENDER;
+        } else if(type.equals("Forward")) {
+            return Player.Position.FORWARD;
+        } else if(type.equals("Midfielder")) {
+            return Player.Position.MIDFIELDER;
         }
 
         return Player.Position.GOALKEEPER;
