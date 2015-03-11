@@ -90,13 +90,13 @@ public class League {
             games.set(i,game);
         }
         //bæta við seinni umferð
-            for(int i=0;i<45;i++){
-                Team homeTeam = new Team("");
-                Team awayTeam = new Team("");
-                homeTeam=games.get(i).getHomeTeam();
-                awayTeam=games.get(i).getAwayTeam();
-                Game game = new Game(awayTeam,homeTeam);
-                games.add(game);
+        for(int i=0;i<45;i++){
+            Team homeTeam = new Team("");
+            Team awayTeam = new Team("");
+            homeTeam=games.get(i).getHomeTeam();
+            awayTeam=games.get(i).getAwayTeam();
+            Game game = new Game(awayTeam,homeTeam);
+            games.add(game);
         }
     }
 
