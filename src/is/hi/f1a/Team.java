@@ -126,7 +126,7 @@ public class Team {
                 defenders.add(player);
             else if(player.getPosition() == Player.Position.MIDFIELDER && player.isAvailable())
                 midfielders.add(player);
-            else
+            else if(player.getPosition() == Player.Position.FORWARD && player.isAvailable())
                 forwards.add(player);
         }
         priceSort(goalkeepers);
@@ -157,39 +157,26 @@ public class Team {
         midSubs = possibleSetups[random][4];
         forSubs = possibleSetups[random][5];
 
-        startingTeam.add(bestPlayer(goalkeepers));
-        goalkeepers.remove(bestPlayer(goalkeepers));
+        startingTeam.add(goalkeepers.get(0));
         for(int i = 0; i < numDefs; i++) {
-            Player tmp = bestPlayer(defenders);
-            startingTeam.add(tmp);
-            defenders.remove(tmp);
+            startingTeam.add(defenders.get(i));
         }
         for(int i = 0; i < numMids; i++) {
-            Player tmp = bestPlayer(midfielders);
-            startingTeam.add(tmp);
-            midfielders.remove(tmp);
+            startingTeam.add(midfielders.get(i));
         }
         for(int i = 0; i < numFors; i++) {
-            Player tmp = bestPlayer(forwards);
-            startingTeam.add(tmp);
-            forwards.remove(tmp);
+            startingTeam.add(forwards.get(i));
         }
 
-        startingTeam.add(bestPlayer(goalkeepers));
+        startingTeam.add(goalkeepers.get(1));
         for(int i = 0; i < defSubs; i++){
-            Player tmp = bestPlayer(defenders);
-            startingTeam.add(tmp);
-            defenders.remove(tmp);
+            startingTeam.add(defenders.get(i+numDefs-1));
         }
         for(int i = 0; i < midSubs; i++){
-            Player tmp = bestPlayer(midfielders);
-            startingTeam.add(tmp);
-            midfielders.remove(tmp);
+            startingTeam.add(midfielders.get(i+numMids-1));
         }
         for(int i = 0; i < forSubs; i++){
-            Player tmp = bestPlayer(forwards);
-            startingTeam.add(tmp);
-            forwards.remove(tmp);
+            startingTeam.add(forwards.get(i+numFors-1));
         }
 
 
