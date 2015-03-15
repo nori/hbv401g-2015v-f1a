@@ -80,22 +80,18 @@ public class TeamTest {
         ArrayList<Player> manU = new ArrayList<Player>();
         manU = manchesterUnited.calculateStartingTeam();
 
-        for(int i = 0; i < manU.size(); i++){
-            System.out.println(manU.get(i).toString());
-        }
-
-        int j = 0;
-
         assertEquals(manU.get(0), DeGea);
         assertEquals(manU.get(1), Blind);
         assertEquals(manU.get(2), Rojo);
         assertEquals(manU.get(3), Shaw);
-        if(manU.get(4).getPosition()== Player.Position.MIDFIELDER)
-            j=4;
-        else if(manU.get(4).getPosition()== Player.Position.MIDFIELDER)
-            j=5;
-        else
-            j=6;
+        int j = 0;
+        if(manU.get(4).getPosition() == Player.Position.MIDFIELDER) {
+            j = 4;
+        } else if(manU.get(4).getPosition() == Player.Position.MIDFIELDER) {
+            j = 5;
+        } else {
+            j = 6;
+        }
         assertEquals(manU.get(j), DiMaria);
         assertEquals(manU.get(j+1), Mata);
         assertEquals(manU.get(j+2), Herrera);
@@ -110,15 +106,5 @@ public class TeamTest {
         manU = manchesterUnited.calculateStartingTeam();
         assertEquals(manU.get(11), Lindegaard);
 
-        for(int i = 0; i < manU.size(); i++){
-            System.out.println(manU.get(i).toString());
-        }
-
-
-
-
-
-
-        // etc.
     }
 }
