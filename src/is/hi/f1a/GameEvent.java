@@ -3,14 +3,15 @@ package is.hi.f1a;
 public class GameEvent {
     private int minute;
     private Player player;
-    private enum Event{
+    private enum Event {
         GOAL,
         OWN_GOAL,
         YELLOW_CARD,
         RED_CARD,
         SUBSTITUTION_ON,
         SUBSTITUTION_OFF,
-        INJURY
+        INJURY,
+        ASSIST
     }
     private Event event;
 
