@@ -19,7 +19,7 @@ public class League {
 
         for(int i = 0; i < teams.size()-1; i++) {
             for (int j = i+1; j < teams.size(); j++) {
-                Game game = new Game(teams.get(i), teams.get(j));
+                Game game = new Game (teams.get(i), teams.get(j));
                 tempGames.add(game);
             }
         }

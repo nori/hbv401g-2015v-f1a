@@ -1,7 +1,8 @@
 package is.hi.f1a;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Team {
     private String name;
@@ -95,6 +96,21 @@ public class Team {
 
         return players.get(tmp);
     }
+
+    private void priceSort(ArrayList<Player> players)
+    {
+        Collections.sort(players, new Comparator<Player>() {
+            public int compare(Player p1, Player p2) {
+                if (p1.getPrice() > p2.getPrice()) {
+                    return 1;
+                } else if (p2.getPrice() > p1.getPrice()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
     //Calculates the best starting team
     public ArrayList<Player> calculateStartingTeam() {
         ArrayList<Player> startingTeam = new ArrayList<Player>();
@@ -113,23 +129,96 @@ public class Team {
             else
                 forwards.add(player);
         }
+        priceSort(goalkeepers);
+        priceSort(defenders);
+        priceSort(midfielders);
+        priceSort(forwards);
+
+        int numDefs = 4;
+        int numMids = 4;
+        int numFors = 2;
+        int defSubs = 2;
+        int midSubs = 3;
+        int forSubs = 1;
+
+        double random = Math.random();
+
+        if(random<=0.2){
+            numDefs = 4;
+            numMids = 4;
+            numFors = 2;
+            defSubs = 2;
+            midSubs = 3;
+            forSubs = 1;
+        }
+        else if(random>0.2 && random<=0.4){
+            numDefs = 4;
+            numMids = 5;
+            numFors = 1;
+            defSubs = 2;
+            midSubs = 3;
+            forSubs = 1;
+        }
+        else if(random>0.4 && random<=0.6) {
+            numDefs = 5;
+            numMids = 4;
+            numFors = 1;
+            defSubs = 3;
+            midSubs = 2;
+            forSubs = 1;
+        }
+        else if(random>0.6 && random<=0.8) {
+            numDefs = 4;
+            numMids = 3;
+            numFors = 3;
+            defSubs = 2;
+            midSubs = 2;
+            forSubs = 2;
+        }
+        else if(random>0.8) {
+            numDefs = 3;
+            numMids = 5;
+            numFors = 2;
+            defSubs = 2;
+            midSubs = 3;
+            forSubs = 1;
+        }
 
         startingTeam.add(bestPlayer(goalkeepers));
-        for(int i = 0; i < 4; i++) {
+        goalkeepers.remove(bestPlayer(goalkeepers));
+        for(int i = 0; i < numDefs; i++) {
             Player tmp = bestPlayer(defenders);
             startingTeam.add(tmp);
             defenders.remove(tmp);
         }
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < numMids; i++) {
             Player tmp = bestPlayer(midfielders);
             startingTeam.add(tmp);
-            defenders.remove(tmp);
+            midfielders.remove(tmp);
         }
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < numFors; i++) {
             Player tmp = bestPlayer(forwards);
+            startingTeam.add(tmp);
+            forwards.remove(tmp);
+        }
+
+        startingTeam.add(bestPlayer(goalkeepers));
+        for(int i = 0; i < defSubs; i++){
+            Player tmp = bestPlayer(defenders);
             startingTeam.add(tmp);
             defenders.remove(tmp);
         }
+        for(int i = 0; i < midSubs; i++){
+            Player tmp = bestPlayer(midfielders);
+            startingTeam.add(tmp);
+            midfielders.remove(tmp);
+        }
+        for(int i = 0; i < forSubs; i++){
+            Player tmp = bestPlayer(forwards);
+            startingTeam.add(tmp);
+            forwards.remove(tmp);
+        }
+
 
         return startingTeam;
     }

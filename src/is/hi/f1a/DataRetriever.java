@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class DataRetriever {
@@ -35,7 +37,8 @@ public class DataRetriever {
         // i = 685
         boolean finished = false;
         for(int i = 1; i <= 700 && !finished; i++) {
-            String fileLocation = "cache/players/" + i + ".json";
+            String fileLocation = Paths.get("cache", "players",
+                    i + ".json").toString();
             File cacheFile = new File(fileLocation);
             String playerJson;
             if(cacheFile.isFile()) {
