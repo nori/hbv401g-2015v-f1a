@@ -11,6 +11,10 @@ public class Player {
         this.goalsConceded = goalsConceded;
     }
 
+    public int getOriginalPrice() {
+        return originalPrice;
+    }
+
     public enum Position {
         GOALKEEPER,
         DEFENDER,
@@ -32,11 +36,12 @@ public class Player {
     private int recentPoints;
     private int games;
     private int price;
+    private int originalPrice;
     private Team team;
 
     public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
                   int yellowCards, int redCards, int minutes,
-                  int totalPoints, int price, int goalsConceded) {
+                  int totalPoints, int originalPrice, int goalsConceded) {
         this.name = name;
         this.position = position;
         this.goals = goals;
@@ -47,8 +52,12 @@ public class Player {
         this.redCards = redCards;
         this.minutes = minutes;
         this.totalPoints = totalPoints;
-        this.price = price;
+        this.originalPrice = originalPrice;
         this.goalsConceded = goalsConceded;
+    }
+
+    public void calculatePrice(IPriceCalculation priceCalculation) {
+        price = priceCalculation.calculatePrice(this);
     }
 
     public String toString() {
