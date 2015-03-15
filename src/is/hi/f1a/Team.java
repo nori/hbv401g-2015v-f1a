@@ -141,48 +141,21 @@ public class Team {
         int midSubs = 3;
         int forSubs = 1;
 
-        double random = Math.random();
+        int[][] possibleSetups = new int[][]{
+                {4, 4, 2, 2, 3, 1},
+                {4, 5, 1, 2, 3, 1},
+                {5, 4, 1, 3, 2, 1},
+                {4, 3, 3, 2, 2, 2},
+                {3, 5, 2, 2, 3, 1},
+        };
+        int random = (int) (Math.random()*possibleSetups.length);
 
-        if(random<=0.2){
-            numDefs = 4;
-            numMids = 4;
-            numFors = 2;
-            defSubs = 2;
-            midSubs = 3;
-            forSubs = 1;
-        }
-        else if(random>0.2 && random<=0.4){
-            numDefs = 4;
-            numMids = 5;
-            numFors = 1;
-            defSubs = 2;
-            midSubs = 3;
-            forSubs = 1;
-        }
-        else if(random>0.4 && random<=0.6) {
-            numDefs = 5;
-            numMids = 4;
-            numFors = 1;
-            defSubs = 3;
-            midSubs = 2;
-            forSubs = 1;
-        }
-        else if(random>0.6 && random<=0.8) {
-            numDefs = 4;
-            numMids = 3;
-            numFors = 3;
-            defSubs = 2;
-            midSubs = 2;
-            forSubs = 2;
-        }
-        else if(random>0.8) {
-            numDefs = 3;
-            numMids = 5;
-            numFors = 2;
-            defSubs = 2;
-            midSubs = 3;
-            forSubs = 1;
-        }
+        numDefs = possibleSetups[random][0];
+        numMids = possibleSetups[random][1];
+        numFors = possibleSetups[random][2];
+        defSubs = possibleSetups[random][3];
+        midSubs = possibleSetups[random][4];
+        forSubs = possibleSetups[random][5];
 
         startingTeam.add(bestPlayer(goalkeepers));
         goalkeepers.remove(bestPlayer(goalkeepers));
