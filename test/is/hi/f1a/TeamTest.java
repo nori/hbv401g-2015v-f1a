@@ -87,7 +87,7 @@ public class TeamTest {
         int j = 0;
         if(manU.get(4).getPosition() == Player.Position.MIDFIELDER) {
             j = 4;
-        } else if(manU.get(4).getPosition() == Player.Position.MIDFIELDER) {
+        } else if(manU.get(5).getPosition() == Player.Position.MIDFIELDER) {
             j = 5;
         } else {
             j = 6;
