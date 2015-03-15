@@ -1,6 +1,7 @@
 package is.hi.f1a;
 
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,8 @@ public class TeamTest {
         DeGea.calculatePrice(new MockPriceCalculation());
         Player Valdes = new Player("Valdes", Player.Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0);
         Valdes.calculatePrice(new MockPriceCalculation());
+        Player Lindegaard = new Player("Lindegaard", Player.Position.GOALKEEPER, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0);
+        Lindegaard.calculatePrice(new MockPriceCalculation());
         Player Smalling = new Player("Smalling", Player.Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0);
         Smalling.calculatePrice(new MockPriceCalculation());
         Player Jones = new Player("Jones", Player.Position.DEFENDER, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0);
@@ -54,6 +57,7 @@ public class TeamTest {
 
         manchesterUnited.addPlayer(DeGea);
         manchesterUnited.addPlayer(Valdes);
+        manchesterUnited.addPlayer(Lindegaard);
         manchesterUnited.addPlayer(Smalling);
         manchesterUnited.addPlayer(Jones);
         manchesterUnited.addPlayer(Shaw);
@@ -79,6 +83,40 @@ public class TeamTest {
         for(int i = 0; i < manU.size(); i++){
             System.out.println(manU.get(i).toString());
         }
+
+        int j = 0;
+
+        assertEquals(manU.get(0), DeGea);
+        assertEquals(manU.get(1), Blind);
+        assertEquals(manU.get(2), Rojo);
+        assertEquals(manU.get(3), Shaw);
+        if(manU.get(4).getPosition()== Player.Position.MIDFIELDER)
+            j=4;
+        else if(manU.get(4).getPosition()== Player.Position.MIDFIELDER)
+            j=5;
+        else
+            j=6;
+        assertEquals(manU.get(j), DiMaria);
+        assertEquals(manU.get(j+1), Mata);
+        assertEquals(manU.get(j+2), Herrera);
+        assertEquals(manU.get(11), Valdes);
+
+        DeGea.setRedCards(1);
+        manU = manchesterUnited.calculateStartingTeam();
+        assertEquals(manU.get(0), Valdes);
+
+        DeGea.setRedCards(0);
+        Valdes.setInjuryLength(1);
+        manU = manchesterUnited.calculateStartingTeam();
+        assertEquals(manU.get(11), Lindegaard);
+
+        for(int i = 0; i < manU.size(); i++){
+            System.out.println(manU.get(i).toString());
+        }
+
+
+
+
 
 
         // etc.

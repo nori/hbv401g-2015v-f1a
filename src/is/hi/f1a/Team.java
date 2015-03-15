@@ -102,9 +102,9 @@ public class Team {
         Collections.sort(players, new Comparator<Player>() {
             public int compare(Player p1, Player p2) {
                 if (p1.getPrice() > p2.getPrice()) {
-                    return 1;
-                } else if (p2.getPrice() > p1.getPrice()) {
                     return -1;
+                } else if (p2.getPrice() > p1.getPrice()) {
+                    return 1;
                 } else {
                     return 0;
                 }
