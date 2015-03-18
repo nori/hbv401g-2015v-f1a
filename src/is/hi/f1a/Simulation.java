@@ -27,7 +27,7 @@ public class Simulation {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
-    public Player calculateCards(ArrayList<Player> team) {
+    public void calculateYellowCards(ArrayList<Player> team), int minute {
         //throw new UnsupportedOperationException("Not implemented yet");
         ArrayList<Player> tempTeam=team;
         for(Player player:team){
@@ -41,6 +41,7 @@ public class Simulation {
             }
         }
         int rand = ((int)(Math.random()))*tempTeam.size();
-        return tempTeam.get(rand);
+        GameEvent gameEvent=new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.YELLOW_CARD);
+        game.addGameEvent(gameEvent);
     }
 }
