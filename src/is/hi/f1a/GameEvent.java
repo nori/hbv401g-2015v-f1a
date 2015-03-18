@@ -3,7 +3,7 @@ package is.hi.f1a;
 public class GameEvent {
     private int minute;
     private Player player;
-    private enum Event {
+    public enum Event {
         GOAL,
         OWN_GOAL,
         YELLOW_CARD,
