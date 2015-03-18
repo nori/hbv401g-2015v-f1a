@@ -41,7 +41,7 @@ public class Player {
 
     public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
                   int yellowCards, int redCards, int minutes,
-                  int totalPoints, int originalPrice, int goalsConceded) {
+                  int totalPoints, int price, int goalsConceded) {
         this.name = name;
         this.position = position;
         this.goals = goals;
@@ -52,12 +52,13 @@ public class Player {
         this.redCards = redCards;
         this.minutes = minutes;
         this.totalPoints = totalPoints;
-        this.originalPrice = originalPrice;
+        this.originalPrice = price;
+        this.price = price;
         this.goalsConceded = goalsConceded;
     }
 
-    public void calculatePrice(IPriceCalculation priceCalculation) {
-        price = priceCalculation.calculatePrice(this);
+    public void calculatePrice(IPriceCalculation priceCalculation, double avgPoints, double avgPrice) {
+        price = priceCalculation.calculatePrice(this, avgPoints, avgPrice);
     }
 
     public String toString() {
