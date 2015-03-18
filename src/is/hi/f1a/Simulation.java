@@ -17,7 +17,7 @@ public class Simulation {
         this.away = awayTeam.calculateStartingTeam();
     }
     public ArrayList<GameEvent> simulate(){
-
+        throw new UnsupportedOperationException("Not implemented yet");
     }
     public void calculateGoals() {
         throw new UnsupportedOperationException("Not, implemented yet");
