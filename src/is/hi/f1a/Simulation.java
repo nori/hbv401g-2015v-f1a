@@ -45,4 +45,25 @@ public class Simulation {
 
         game.addGameEvent(gameEvent);
     }
+
+
+    public void calculateRedCards(ArrayList<Player> team, int minute) {
+        //throw new UnsupportedOperationException("Not implemented yet");
+        ArrayList<Player> tempTeam=team;
+        for(Player player:team){
+            if(player.getPosition() == Player.Position.DEFENDER) {
+                tempTeam.add(player);
+            }
+            if (player.getGames()!=0){
+                if (player.getRedCards()/player.getGames() > 0.2) {
+                    tempTeam.add(player);
+                }
+            }
+        }
+        int rand = ((int)(Math.random()))*tempTeam.size();
+        GameEvent gameEvent=new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.RED_CARD);
+
+        game.addGameEvent(gameEvent);
+    }
+
 }

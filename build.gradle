@@ -1,5 +1,5 @@
 apply plugin: 'java'
-apply plugin:'application'
+apply plugin: 'application'
 
 mainClassName = "is.hi.f1a.Main"
 sourceSets.main.java.srcDirs = ['src']
