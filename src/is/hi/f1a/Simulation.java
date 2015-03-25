@@ -29,7 +29,7 @@ public class Simulation {
 
     public void calculateYellowCards(ArrayList<Player> team, int minute) {
         //throw new UnsupportedOperationException("Not implemented yet");
-        ArrayList<Player> tempTeam=team;
+        ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team){
             if(player.getPosition() == Player.Position.DEFENDER) {
                 tempTeam.add(player);
@@ -41,7 +41,7 @@ public class Simulation {
             }
         }
         int rand = ((int)(Math.random()))*tempTeam.size();
-        GameEvent gameEvent=new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.YELLOW_CARD);
+        GameEvent gameEvent = new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.YELLOW_CARD);
 
         game.addGameEvent(gameEvent);
     }
@@ -49,7 +49,7 @@ public class Simulation {
 
     public void calculateRedCards(ArrayList<Player> team, int minute) {
         //throw new UnsupportedOperationException("Not implemented yet");
-        ArrayList<Player> tempTeam=team;
+        ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team){
             if(player.getPosition() == Player.Position.DEFENDER) {
                 tempTeam.add(player);
