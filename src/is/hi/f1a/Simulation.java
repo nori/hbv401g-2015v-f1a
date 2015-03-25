@@ -8,6 +8,8 @@ public class Simulation {
     private Team awayTeam;
     private ArrayList<Player> home;
     private ArrayList<Player> away;
+    private int homeSub = 0;
+    private int awaySub = 0;
 
     public Simulation(Game game) {
         this.game = game;
@@ -16,8 +18,70 @@ public class Simulation {
         this.home = homeTeam.calculateStartingTeam();
         this.away = awayTeam.calculateStartingTeam();
     }
-    public ArrayList<GameEvent> simulate(){
-        throw new UnsupportedOperationException("Not implemented yet");
+
+    public void simulate(){
+        //throw new UnsupportedOperationException("Not implemented yet");
+        double priceFact = (homeTeam.getPrice()-awayTeam.getPrice())/(homeTeam.getPrice()+awayTeam.getPrice());
+        int goalChance = 3;
+        double extra = 0;
+        if (Math.abs(priceFact) > 0.3)  {
+            goalChance++;
+        }
+        if (Math.abs(priceFact) > 0.5)  {
+            goalChance++;
+        }
+        if (Math.abs(priceFact) > 0.7)  {
+            goalChance++;
+        }
+        for(int i = 1; i <= 90 + extra; i++) {
+            double random = Math.random();
+            if(random<goalChance/90){
+                double teamRandom = Math.random() + priceFact*2;
+                if(teamRandom > 0.5) {
+                    calculateGoals(home, i);
+                } else {
+                    calculateGoals(away, i);
+                }
+                extra += 0.5;
+            }
+            if(random<2/90) {
+                double teamRandom = Math.random();
+                if(teamRandom > 0.5) {
+                    calculateYellowCards(home, i);
+                } else {
+                    calculateYellowCards(away, i);
+                }
+                extra += 0.1;
+            }
+            if(random<1/900) {
+                double teamRandom = Math.random();
+                if(teamRandom > 0.5) {
+                    calculateRedCards(home, i);
+                } else {
+                    calculateRedCards(away, i);
+                }
+                extra += 0.5;
+            }
+            if(random<1/900) {
+                double teamRandom = Math.random();
+                if(teamRandom > 0.5) {
+                    calculateInjuries(home, i);
+                } else {
+                    calculateInjuries(away, i);
+                }
+                extra += 0.5;
+            }
+            if(random<1/1500) {
+                double teamRandom = Math.random();
+                if(teamRandom > 0.5) {
+                    calculateOwnGoals(home, i);
+                } else {
+                    calculateOwnGoals(away, i);
+                }
+                extra += 1.0;
+            }
+        }
+
     }
     public void calculateGoals(ArrayList<Player> team, int minute) {
         ArrayList<Player> tempTeamGoal = new ArrayList<Player>(team);
@@ -78,10 +142,6 @@ public class Simulation {
             gameEvent = new GameEvent(minute, tempTeamAssist.get(rand), GameEvent.Event.ASSIST);
             game.addGameEvent(gameEvent);
         }
-    }
-
-    public void calculateInjuries() {
-        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     public void calculateYellowCards(ArrayList<Player> team, int minute) {
