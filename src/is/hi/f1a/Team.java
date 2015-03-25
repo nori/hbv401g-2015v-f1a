@@ -182,4 +182,13 @@ public class Team {
 
         return startingTeam;
     }
+
+    public int getPrice() {
+        int sum = 0;
+        for(Player p : players) {
+            sum += p.getPrice();
+        }
+
+        return sum;
+    }
 }
