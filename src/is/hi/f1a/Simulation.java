@@ -161,7 +161,6 @@ public class Simulation {
     }
 
     public void calculateYellowCards(ArrayList<Player> team, int minute) {
-        //throw new UnsupportedOperationException("Not implemented yet");
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team){
             if(player.getPosition() == Player.Position.DEFENDER) {
@@ -181,7 +180,6 @@ public class Simulation {
 
 
     public void calculateRedCards(ArrayList<Player> team, int minute) {
-        //throw new UnsupportedOperationException("Not implemented yet");
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team){
             if(player.getPosition() == Player.Position.DEFENDER) {
@@ -251,6 +249,9 @@ public class Simulation {
                 tempTeam.remove(i);
                 i--;
             }
+        }
+        if (tempBench.size()==0){
+            tempBench=new ArrayList<Player>(bench);
         }
         int max = 0;
         for (int i = 0; i < tempBench.size(); i++) {
