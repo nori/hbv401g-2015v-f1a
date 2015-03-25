@@ -8,6 +8,8 @@ public class Simulation {
     private Team awayTeam;
     private ArrayList<Player> home;
     private ArrayList<Player> away;
+    private ArrayList<Player> homeBench;
+    private ArrayList<Player> awayBench;
     private int homeSub = 0;
     private int awaySub = 0;
 
@@ -16,6 +18,11 @@ public class Simulation {
         this.awayTeam = this.game.getHomeTeam();
         this.homeTeam = this.game.getAwayTeam();
         this.home = homeTeam.calculateStartingTeam();
+        this.home = (ArrayList<Player>) home.subList(0, 11);
+        this.homeBench = (ArrayList<Player>) home.subList(11, 18);
+        this.away = awayTeam.calculateStartingTeam();
+        this.away = (ArrayList<Player>) away.subList(0, 11);
+        this.awayBench = (ArrayList<Player>) away.subList(11, 18);
         this.away = awayTeam.calculateStartingTeam();
     }
 
@@ -79,6 +86,15 @@ public class Simulation {
                     calculateOwnGoals(away, i);
                 }
                 extra += 1.0;
+            }
+            int timeRemaining = 90-i;
+            if(i > 45 && random < (3-homeSub)/timeRemaining) {
+                calculateSubstitution(home,i);
+                extra += 0.2;
+            }
+            if(i > 45 && random < (3-awaySub)/timeRemaining) {
+                calculateSubstitution(away,i);
+                extra += 0.2;
             }
         }
 
