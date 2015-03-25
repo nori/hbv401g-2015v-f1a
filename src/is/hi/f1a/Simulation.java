@@ -247,7 +247,7 @@ public class Simulation {
 
 
         for( int i = 0; i < tempBench.size(); i++) {
-            if(tempTeam.get(i).getPosition() != tempTeam.get(rand).getPosition() {
+            if(tempTeam.get(i).getPosition() != tempTeam.get(rand).getPosition()) {
                 tempTeam.remove(i);
                 i--;
             }
