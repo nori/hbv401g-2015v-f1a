@@ -32,4 +32,8 @@ public class GameEvent {
     public Event getEvent() {
         return event;
     }
+
+    public String toString() {
+        return "Minute = " + minute + " Player = " + player.toString() + "Event = " + event.toString();
+    }
 }

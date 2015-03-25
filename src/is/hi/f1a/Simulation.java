@@ -89,11 +89,11 @@ public class Simulation {
             }
             int timeRemaining = 90-i;
             if(i > 45 && random < (3-homeSub)/timeRemaining) {
-                calculateSubstitution(home,i);
+                calculateSubstitution(home, homeBench, i);
                 extra += 0.2;
             }
             if(i > 45 && random < (3-awaySub)/timeRemaining) {
-                calculateSubstitution(away,i);
+                calculateSubstitution(away, awayBench, i);
                 extra += 0.2;
             }
         }
