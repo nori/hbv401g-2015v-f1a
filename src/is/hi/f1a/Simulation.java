@@ -89,11 +89,11 @@ public class Simulation {
             }
             int timeRemaining = 90-i;
             if(i > 45 && random < (3-homeSub)/timeRemaining) {
-                calculateSubstitution(home, homeBench, i);
+                calculateSubstitutionHome(home, homeBench, i);
                 extra += 0.2;
             }
             if(i > 45 && random < (3-awaySub)/timeRemaining) {
-                calculateSubstitution(away, awayBench, i);
+                calculateSubstitutionAway(away, awayBench, i);
                 extra += 0.2;
             }
         }
@@ -230,7 +230,7 @@ public class Simulation {
         game.addGameEvent(gameEvent);
     }
     //COMMENT
-    public void calculateSubstitution(ArrayList<Player> team, ArrayList<Player> bench,  int minute) {
+    public void calculateSubstitutionHome(ArrayList<Player> team, ArrayList<Player> bench,  int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         ArrayList<Player> tempBench = new ArrayList<Player>(bench);
         for( int i = 0; i < tempTeam.size(); i++) {
@@ -242,7 +242,6 @@ public class Simulation {
         }
         int rand = ((int) (Math.random()))*tempTeam.size();
         GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.SUBSTITUTION_OFF);
-
 
         for( int i = 0; i < tempBench.size(); i++) {
             if(tempTeam.get(i).getPosition() != tempTeam.get(rand).getPosition()) {
@@ -260,36 +259,61 @@ public class Simulation {
             }
         }
         gameEvent = new GameEvent(minute, tempBench.get(max), GameEvent.Event.SUBSTITUTION_ON);
+        for(int i=0;i<home.size();i++){
+            if(home.get(i)==tempTeam.get(rand)){
+                home.remove(i);
+                i--;
+            }
+        }
+        home.add(tempBench.get(max));
+        for(int i=0;i<homeBench.size();i++){
+            if(homeBench.get(i)==tempBench.get(max)){
+                homeBench.remove(i);
+                i--;
+            }
+        }
     }
-    public void calculateAssist(ArrayList<Player> team, int minute, Player goalscorer) {
+    public void calculateSubstitutionAway(ArrayList<Player> team, ArrayList<Player> bench,  int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
-        for(Player player:team){
-            if(player.getPosition() == Player.Position.MIDFIELDER||player.getPosition() == Player.Position.FORWARD) {
-                tempTeam.add(player);
-            }
-            if(player.getPrice()>= 7) {
-                tempTeam.add(player);
-            }
-            if(player.getPrice()>= 10) {
-                tempTeam.add(player);
-            }
-        }
-        for(int i = 0;i<tempTeam.size();i++){
-            if(tempTeam.get(i).getPosition()== Player.Position.GOALKEEPER) {
+        ArrayList<Player> tempBench = new ArrayList<Player>(bench);
+        for( int i = 0; i < tempTeam.size(); i++) {
+            if(tempTeam.get(i).getPosition() == Player.Position.GOALKEEPER) {
                 tempTeam.remove(i);
                 i--;
             }
-            if(tempTeam.get(i)==goalscorer) {
-                tempTeam.remove(i);
-                i--;
-            }
-        }
 
-        double r = Math.random();
-        int rand = ((int)r)*tempTeam.size();
-        if(r<0.8) {
-            GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.ASSIST);
-            game.addGameEvent(gameEvent);
+        }
+        int rand = ((int) (Math.random()))*tempTeam.size();
+        GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.SUBSTITUTION_OFF);
+
+        for( int i = 0; i < tempBench.size(); i++) {
+            if(tempTeam.get(i).getPosition() != tempTeam.get(rand).getPosition()) {
+                tempTeam.remove(i);
+                i--;
+            }
+        }
+        if (tempBench.size()==0){
+            tempBench=new ArrayList<Player>(bench);
+        }
+        int max = 0;
+        for (int i = 0; i < tempBench.size(); i++) {
+            if(tempBench.get(i).getPrice() > tempBench.get(max).getPrice()) {
+                max = i;
+            }
+        }
+        gameEvent = new GameEvent(minute, tempBench.get(max), GameEvent.Event.SUBSTITUTION_ON);
+        for(int i=0;i<away.size();i++){
+            if(away.get(i)==tempTeam.get(rand)){
+                away.remove(i);
+                i--;
+            }
+        }
+        away.add(tempBench.get(max));
+        for(int i=0;i<awayBench.size();i++){
+            if(awayBench.get(i)==tempBench.get(max)){
+                awayBench.remove(i);
+                i--;
+            }
         }
     }
 
