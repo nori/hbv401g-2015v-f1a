@@ -231,6 +231,7 @@ public class Simulation {
         GameEvent gameEvent=new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.OWN_GOAL);
         game.addGameEvent(gameEvent);
     }
+    //COMMENT
     public void calculateSubstitution(ArrayList<Player> team, ArrayList<Player> bench,  int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         ArrayList<Player> tempBench = new ArrayList<Player>(bench);
