@@ -50,10 +50,6 @@ public class Simulation {
         game.addGameEvent(gameEvent);
     }
 
-    public void calculateInjuries() {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
     public void calculateYellowCards(ArrayList<Player> team, int minute) {
         //throw new UnsupportedOperationException("Not implemented yet");
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
@@ -124,6 +120,34 @@ public class Simulation {
         int rand = ((int)(Math.random()))*tempTeam.size();
         GameEvent gameEvent=new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.OWN_GOAL);
         game.addGameEvent(gameEvent);
+    }
+    public void calculateSubstitution(ArrayList<Player> team, ArrayList<Player> bench,  int minute) {
+        ArrayList<Player> tempTeam = new ArrayList<Player>(team);
+        ArrayList<Player> tempBench = new ArrayList<Player>(bench);
+        for( int i = 0; i < tempTeam.size(); i++) {
+            if(tempTeam.get(i).getPosition() == Player.Position.GOALKEEPER) {
+                tempTeam.remove(i);
+                i--;
+            }
+
+        }
+        int rand = ((int) (Math.random()))*tempTeam.size();
+        GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.SUBSTITUTION_OFF);
+
+
+        for( int i = 0; i < tempBench.size(); i++) {
+            if(tempTeam.get(i).getPosition() != tempTeam.get(rand).getPosition() {
+                tempTeam.remove(i);
+                i--;
+            }
+        }
+        int max = 0;
+        for (int i = 0; i < tempBench.size(); i++) {
+            if(tempBench.get(i).getPrice() > tempBench.get(max).getPrice()) {
+                max = i;
+            }
+        }
+        gameEvent = new GameEvent(minute, tempBench.get(max), GameEvent.Event.SUBSTITUTION_ON);
     }
 
 
