@@ -65,5 +65,24 @@ public class Simulation {
 
         game.addGameEvent(gameEvent);
     }
+    public void calculateInjuries(ArrayList<Player> team, int minute) {
+        ArrayList<Player> tempTeam = new ArrayList<Player>(team);
+        for(Player player:team) {
+            if(player.getInjuryProne() > 0.7) {
+                tempTeam.add(player);
+            }
+            if(player.getInjuryProne() > 0.9) {
+                tempTeam.add(player);
+            }
+            if(player.getPosition() == Player.Position.DEFENDER || player.getPosition() == Player.Position.MIDFIELDER || player.getPosition() == Player.Position.FORWARD) {
+                tempTeam.add(player);
+            }
+        }
+        int rand = ((int)(Math.random()))*tempTeam.size();
+        GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.INJURY);
+        game.addGameEvent(gameEvent);
+    }
+
+
 
 }
