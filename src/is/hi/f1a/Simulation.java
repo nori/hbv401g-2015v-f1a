@@ -109,7 +109,22 @@ public class Simulation {
         GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.INJURY);
         game.addGameEvent(gameEvent);
     }
-
+    public void calculateOwnGoals(ArrayList<Player> team, int minute) {
+        ArrayList<Player> tempTeam = new ArrayList<Player>(team);
+        for(Player player:team){
+            if(player.getPosition() == Player.Position.DEFENDER) {
+                tempTeam.add(player);
+            }
+            if (player.getGames()!=0){
+                if (player.getOwnGoals() /player.getGames() > 0.2) {
+                    tempTeam.add(player);
+                }
+            }
+        }
+        int rand = ((int)(Math.random()))*tempTeam.size();
+        GameEvent gameEvent=new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.OWN_GOAL);
+        game.addGameEvent(gameEvent);
+    }
 
 
 }
