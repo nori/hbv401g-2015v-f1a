@@ -19,8 +19,35 @@ public class Simulation {
     public ArrayList<GameEvent> simulate(){
         throw new UnsupportedOperationException("Not implemented yet");
     }
-    public void calculateGoals() {
-        throw new UnsupportedOperationException("Not, implemented yet");
+    public void calculateGoals(ArrayList<Player> team, int minute) {
+        ArrayList<Player> tempTeam = new ArrayList<Player>(team);
+        for(Player player:team){
+            if(player.getPosition() == Player.Position.MIDFIELDER) {
+                tempTeam.add(player);
+            }
+            if(player.getPosition() == Player.Position.FORWARD) {
+                tempTeam.add(player);
+                tempTeam.add(player);
+                if(player.getPrice()>= 8) {
+                    tempTeam.add(player);
+                }
+            }
+            if(player.getPrice()>= 7) {
+                tempTeam.add(player);
+            }
+            if(player.getPrice()>= 10) {
+                tempTeam.add(player);
+            }
+        }
+        for(Player player:tempTeam){
+            if(player.getPosition()== Player.Position.GOALKEEPER) {
+                tempTeam.remove(player);
+            }
+        }
+        int rand = ((int)(Math.random()))*tempTeam.size();
+        GameEvent gameEvent = new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.GOAL);
+
+        game.addGameEvent(gameEvent);
     }
 
     public void calculateInjuries() {
