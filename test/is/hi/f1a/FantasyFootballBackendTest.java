@@ -9,7 +9,7 @@ public class FantasyFootballBackendTest {
     @Test
     public void testGetLeague() {
         try {
-            FantasyFootballBackend fantasyFootballBackend = new FantasyFootballBackend();
+            FantasyFootballBackend fantasyFootballBackend = FantasyFootballBackend.getInstance();
             League league = fantasyFootballBackend.getLeague();
             assertEquals(league.getTeams().size(), 10);
         } catch (Exception e) {
