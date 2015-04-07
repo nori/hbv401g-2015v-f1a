@@ -16,3 +16,7 @@ hs_err_pid*
 
 build
 .gradle
+/bin/
+
+# Group f2a
+src/is/hi/f2a
