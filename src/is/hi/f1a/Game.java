@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class Game {
     private Team homeTeam;
     private Team awayTeam;
+    private ArrayList<Player> startingTeamHome;
+    private ArrayList<Player> startingTeamAway;
     private int homeScore;
     private int awayScore;
     private ArrayList<GameEvent> gameEvents;
@@ -15,6 +17,22 @@ public class Game {
     public Game(Team homeTeam, Team awayTeam) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+    }
+
+    public ArrayList<Player> getStartingTeamHome() {
+        return startingTeamHome;
+    }
+
+    public void setStartingTeamHome(ArrayList<Player> startingTeamHome) {
+        this.startingTeamHome = startingTeamHome;
+    }
+
+    public ArrayList<Player> getStartingTeamAway() {
+        return startingTeamAway;
+    }
+
+    public void setStartingTeamAway(ArrayList<Player> startingTeamAway) {
+        this.startingTeamAway = startingTeamAway;
     }
 
     public Team getHomeTeam() {
@@ -44,5 +62,9 @@ public class Game {
 
     public void addGameEvent(GameEvent gameEvent) {
         gameEvents.add(gameEvent);
+    }
+
+    public ArrayList<GameEvent> getGameEvents() {
+        return gameEvents;
     }
 }

@@ -24,6 +24,8 @@ public class Simulation {
         this.away = (ArrayList<Player>) away.subList(0, 11);
         this.awayBench = (ArrayList<Player>) away.subList(11, 18);
         this.away = awayTeam.calculateStartingTeam();
+        game.setStartingTeamHome(home);
+        game.setStartingTeamAway(away);
     }
 
     public void simulate(){
@@ -46,8 +48,10 @@ public class Simulation {
                 double teamRandom = Math.random() + priceFact*2;
                 if(teamRandom > 0.5) {
                     calculateGoals(home, i);
+                    game.setHomeScore(game.getHomeScore()+1);
                 } else {
                     calculateGoals(away, i);
+                    game.setAwayScore(game.getAwayScore()+1);
                 }
                 extra += 0.5;
             }
@@ -82,8 +86,10 @@ public class Simulation {
                 double teamRandom = Math.random();
                 if(teamRandom > 0.5) {
                     calculateOwnGoals(home, i);
+                    game.setAwayScore(game.getAwayScore()+1);
                 } else {
                     calculateOwnGoals(away, i);
+                    game.setHomeScore(game.getHomeScore()+1);
                 }
                 extra += 1.0;
             }

@@ -191,4 +191,10 @@ public class Team {
 
         return sum;
     }
+
+    public void clearRecentPoints() {
+        for(Player p : players) {
+            p.setRecentPoints(0);
+        }
+    }
 }

@@ -2,6 +2,9 @@ package is.hi.f1a;
 
 import java.util.*;
 
+import static is.hi.f1a.GameEvent.Event.*;
+import static is.hi.f1a.Player.Position.*;
+
 public class League {
     private ArrayList<Team> teams;
     private ArrayList<Game> games;
@@ -142,5 +145,92 @@ public class League {
 
     public ArrayList<Game> getGames() {
         return games;
+
+    }
+    private int calculatePoints(Game game){
+        game.getHomeTeam().clearRecentPoints();
+        game.getAwayTeam().clearRecentPoints();
+        for(Player p:game.getStartingTeamHome()){
+            p.setGames(p.getGoals() + 1);
+            p.setRecentPoints(p.getRecentPoints() + 2);
+            p.setTotalPoints(p.getTotalPoints() + 2);
+        }
+        for(Player p:game.getStartingTeamAway()){
+            p.setGames(p.getGoals() + 1);
+            p.setRecentPoints(p.getRecentPoints() + 2);
+            p.setTotalPoints(p.getTotalPoints() + 2);
+        }
+        for(GameEvent gameEvent: game.getGameEvents()){
+            Player p = gameEvent.getPlayer();
+            if(gameEvent.getEvent() == GOAL){
+                if(p.getPosition() == DEFENDER) {
+                    p.setGoals(p.getGoals() + 1);
+                    p.setRecentPoints(p.getRecentPoints() + 6);
+                    p.setTotalPoints(p.getTotalPoints() + 6);
+                }
+                if(p.getPosition()== MIDFIELDER) {
+                    p.setGoals(p.getGoals() + 1);
+                    p.setRecentPoints(p.getRecentPoints() + 5);
+                    p.setTotalPoints(p.getTotalPoints() + 5);
+                }
+                if(p.getPosition()== FORWARD) {
+                    p.setGoals(p.getGoals() + 1);
+                    p.setRecentPoints(p.getRecentPoints() + 4);
+                    p.setTotalPoints(p.getTotalPoints() + 4);
+                }
+            }
+            if(gameEvent.getEvent()==ASSIST) {
+                p.setAssists(p.getAssists() + 1);
+                p.setRecentPoints(p.getRecentPoints() + 3);
+                p.setTotalPoints(p.getTotalPoints() + 3);
+            }
+            if(gameEvent.getEvent()==RED_CARD) {
+                p.setRedCards(p.getRedCards() + 1);
+                p.setRecentPoints(p.getRecentPoints() - 3);
+                p.setTotalPoints(p.getTotalPoints() - 3);
+            }
+            if(gameEvent.getEvent()==YELLOW_CARD) {
+                p.setYellowCards(p.getYellowCards() + 1);
+                p.setRecentPoints(p.getRecentPoints() - 1);
+                p.setTotalPoints(p.getTotalPoints() - 1);
+            }
+            if(gameEvent.getEvent()==OWN_GOAL) {
+                p.setOwnGoals(p.getOwnGoals() + 1);
+                p.setRecentPoints(p.getRecentPoints() - 3);
+                p.setTotalPoints(p.getTotalPoints() - 3);
+            }
+            if(gameEvent.getEvent()==SUBSTITUTION_OFF && gameEvent.getMinute()<60){
+                p.setRecentPoints(p.getRecentPoints()-1);
+                p.setTotalPoints(p.getTotalPoints()-1);
+            }
+            if(gameEvent.getEvent()==SUBSTITUTION_ON){
+                if(gameEvent.getMinute()<=30){
+                    p.setRecentPoints(p.getRecentPoints()+2);
+                    p.setTotalPoints(p.getTotalPoints()+2);
+                }
+                else{
+                    p.setRecentPoints(p.getRecentPoints()+1);
+                    p.setTotalPoints(p.getTotalPoints()+1);
+                }
+            }
+        }
+        if(game.getHomeScore()==0)
+            for(Player p : game.getStartingTeamAway()){
+                if(p.getPosition()==GOALKEEPER||p.getPosition()==DEFENDER){
+                    p.setCleanSheet(p.getCleanSheet() + 1);
+                    p.setRecentPoints(p.getRecentPoints() + 4);
+                    p.setTotalPoints(p.getTotalPoints() + 4);
+                }
+
+        }
+        if(game.getAwayScore()==0)
+            for(Player p : game.getStartingTeamHome()){
+                if(p.getPosition()==GOALKEEPER||p.getPosition()==DEFENDER){
+                    p.setCleanSheet(p.getCleanSheet() + 1);
+                    p.setRecentPoints(p.getRecentPoints() + 4);
+                    p.setTotalPoints(p.getTotalPoints() + 4);
+                }
+
+            }
     }
 }
