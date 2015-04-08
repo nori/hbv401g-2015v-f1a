@@ -7,10 +7,12 @@ public class League {
     private ArrayList<Game> games;
     private int currentRound;
     private Simulation simulation;
+    private PriceCalculation pCalc;
 
     public League(ArrayList<Team> teams) {
         this.games = new ArrayList<Game>();
         this.teams = teams;
+        pCalc = new PriceCalculation();
         createSchedule();
     }
 
@@ -101,7 +103,33 @@ public class League {
     }
 
     public void playNextRound() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        currentRound++;
+        for(int i = (currentRound-1)*5; i < 5*currentRound; i++) {
+            Simulation s = new Simulation(games.get(i));
+            s.simulate();
+        }
+        //updatePoints();
+        updateSkill();
+    }
+
+    private void updateSkill(){
+        int sumPoints = 0;
+        int sumSkill = 0;
+        int count = 0;
+
+        for(Team t: teams){
+            for(Player p: t.getPlayers()){
+                sumPoints += p.getRecentPoints();
+                sumSkill += p.getPrice();
+                count++;
+            }
+        }
+
+        for(Team t: teams){
+            for(Player p: t.getPlayers()){
+                p.calculatePrice(pCalc, (double)sumPoints/count, (double)sumSkill/count);
+            }
+        }
     }
 
     public Team getTeam(String team) {
