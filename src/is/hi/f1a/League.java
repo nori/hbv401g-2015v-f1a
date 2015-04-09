@@ -107,7 +107,7 @@ public class League {
             Simulation s = new Simulation(games.get(i));
             s.simulate();
         }
-        //updatePoints();
+        updatePoints();
         updateSkill();
     }
 
@@ -132,7 +132,13 @@ public class League {
     }
 
     public Team getTeam(String team) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        for (Team t : teams) {
+            if (t.getName().equals(team)) {
+                return t;
+            }
+        }
+
+        return null;
     }
 
     public ArrayList<Team> getTeams() {
@@ -143,6 +149,13 @@ public class League {
         return games;
 
     }
+
+    private void updatePoints() {
+        for(int i = (currentRound-1)*5; i < 5*currentRound; i++) {
+            calculatePoints(games.get(i));
+        }
+    }
+
     private void calculatePoints(Game game){
         game.getHomeTeam().clearRecentPoints();
         game.getAwayTeam().clearRecentPoints();

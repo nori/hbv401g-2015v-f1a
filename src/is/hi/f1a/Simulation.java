@@ -1,15 +1,16 @@
 package is.hi.f1a;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Simulation {
     private Game game;
     private Team homeTeam;
     private Team awayTeam;
-    private ArrayList<Player> home;
-    private ArrayList<Player> away;
-    private ArrayList<Player> homeBench;
-    private ArrayList<Player> awayBench;
+    private List<Player> home;
+    private List<Player> away;
+    private List<Player> homeBench;
+    private List<Player> awayBench;
     private int homeSub = 0;
     private int awaySub = 0;
 
@@ -18,11 +19,11 @@ public class Simulation {
         this.awayTeam = this.game.getHomeTeam();
         this.homeTeam = this.game.getAwayTeam();
         this.home = homeTeam.calculateStartingTeam();
-        this.home = (ArrayList<Player>) home.subList(0, 11);
-        this.homeBench = (ArrayList<Player>) home.subList(11, 18);
+        this.homeBench = home.subList(11, 18);
+        this.home = home.subList(0, 11);
         this.away = awayTeam.calculateStartingTeam();
-        this.away = (ArrayList<Player>) away.subList(0, 11);
-        this.awayBench = (ArrayList<Player>) away.subList(11, 18);
+        this.awayBench = away.subList(11, 18);
+        this.away = away.subList(0, 11);
         this.away = awayTeam.calculateStartingTeam();
         game.setStartingTeamHome(home);
         game.setStartingTeamAway(away);
@@ -48,10 +49,10 @@ public class Simulation {
                 double teamRandom = Math.random() + priceFact*2;
                 if(teamRandom > 0.5) {
                     calculateGoals(home, i);
-                    game.setHomeScore(game.getHomeScore()+1);
+                    game.setHomeScore(game.getHomeScore() + 1);
                 } else {
                     calculateGoals(away, i);
-                    game.setAwayScore(game.getAwayScore()+1);
+                    game.setAwayScore(game.getAwayScore() + 1);
                 }
                 extra += 0.5;
             }
@@ -86,10 +87,10 @@ public class Simulation {
                 double teamRandom = Math.random();
                 if(teamRandom > 0.5) {
                     calculateOwnGoals(home, i);
-                    game.setAwayScore(game.getAwayScore()+1);
+                    game.setAwayScore(game.getAwayScore() + 1);
                 } else {
                     calculateOwnGoals(away, i);
-                    game.setHomeScore(game.getHomeScore()+1);
+                    game.setHomeScore(game.getHomeScore() + 1);
                 }
                 extra += 1.0;
             }
@@ -105,7 +106,7 @@ public class Simulation {
         }
 
     }
-    public void calculateGoals(ArrayList<Player> team, int minute) {
+    public void calculateGoals(List<Player> team, int minute) {
         ArrayList<Player> tempTeamGoal = new ArrayList<Player>(team);
         for(Player player:team){
             if(player.getPosition() == Player.Position.MIDFIELDER) {
@@ -166,7 +167,7 @@ public class Simulation {
         }
     }
 
-    public void calculateYellowCards(ArrayList<Player> team, int minute) {
+    public void calculateYellowCards(List<Player> team, int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team){
             if(player.getPosition() == Player.Position.DEFENDER) {
@@ -185,7 +186,7 @@ public class Simulation {
     }
 
 
-    public void calculateRedCards(ArrayList<Player> team, int minute) {
+    public void calculateRedCards(List<Player> team, int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team){
             if(player.getPosition() == Player.Position.DEFENDER) {
@@ -202,7 +203,7 @@ public class Simulation {
 
         game.addGameEvent(gameEvent);
     }
-    public void calculateInjuries(ArrayList<Player> team, int minute) {
+    public void calculateInjuries(List<Player> team, int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team) {
             if(player.getInjuryProne() > 0.7) {
@@ -219,7 +220,7 @@ public class Simulation {
         GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.INJURY);
         game.addGameEvent(gameEvent);
     }
-    public void calculateOwnGoals(ArrayList<Player> team, int minute) {
+    public void calculateOwnGoals(List<Player> team, int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team){
             if(player.getPosition() == Player.Position.DEFENDER) {
@@ -236,7 +237,7 @@ public class Simulation {
         game.addGameEvent(gameEvent);
     }
     //COMMENT
-    public void calculateSubstitutionHome(ArrayList<Player> team, ArrayList<Player> bench,  int minute) {
+    public void calculateSubstitutionHome(List<Player> team, List<Player> bench,  int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         ArrayList<Player> tempBench = new ArrayList<Player>(bench);
         for( int i = 0; i < tempTeam.size(); i++) {
@@ -246,7 +247,7 @@ public class Simulation {
             }
 
         }
-        int rand = ((int) (Math.random()))*tempTeam.size();
+        int rand = (int) (Math.random()*tempTeam.size());
         GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.SUBSTITUTION_OFF);
 
         for( int i = 0; i < tempBench.size(); i++) {
@@ -279,7 +280,7 @@ public class Simulation {
             }
         }
     }
-    public void calculateSubstitutionAway(ArrayList<Player> team, ArrayList<Player> bench,  int minute) {
+    public void calculateSubstitutionAway(List<Player> team, List<Player> bench,  int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         ArrayList<Player> tempBench = new ArrayList<Player>(bench);
         for( int i = 0; i < tempTeam.size(); i++) {
