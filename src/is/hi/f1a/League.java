@@ -208,6 +208,36 @@ public class League {
                 p.setRecentPoints(p.getRecentPoints() - 3);
                 p.setTotalPoints(p.getTotalPoints() - 3);
             }
+            if(gameEvent.getEvent()==INJURY){
+                double random= Math.random();
+                if(random<0.3){
+                    p.setInjuryLength(1);
+                }
+                else if(random>=0.3 && random<0.5){
+                    p.setInjuryLength(2);
+                }
+                else if(random>=0.5 && random<0.75){
+                    p.setInjuryLength(3);
+                }
+                else if(random>=0.75 && random<0.9){
+                    p.setInjuryLength(4);
+                }
+                else if(random>=0.9 && random<0.95){
+                    p.setInjuryLength(5);
+                }
+                else if(random>=0.95 && random<0.97){
+                    p.setInjuryLength(6);
+                }
+                else if(random>=0.97 && random<0.98){
+                    p.setInjuryLength(7);
+                }
+                else if(random>=0.98 && random<0.99){
+                    p.setInjuryLength(8);
+                }
+                else if(random>=0.99){
+                    p.setInjuryLength(9);
+                }
+            }
             if(gameEvent.getEvent()==SUBSTITUTION_OFF && gameEvent.getMinute()<60){
                 p.setRecentPoints(p.getRecentPoints()-1);
                 p.setTotalPoints(p.getTotalPoints()-1);

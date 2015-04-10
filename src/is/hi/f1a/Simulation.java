@@ -68,18 +68,20 @@ public class Simulation {
             if(random<1/900) {
                 double teamRandom = Math.random();
                 if(teamRandom > 0.5) {
-                    calculateRedCards(home, i);
+                    calculateRedCards(home, homeBench, i);
                 } else {
-                    calculateRedCards(away, i);
+                    calculateRedCards(away, awayBench, i);
                 }
                 extra += 0.5;
             }
             if(random<1/900) {
                 double teamRandom = Math.random();
                 if(teamRandom > 0.5) {
-                    calculateInjuries(home, i);
+                    Player substitute = calculateInjuries(home, i);
+                    calculateSubstitutionInjury(substitute,home,homeBench, i);
                 } else {
-                    calculateInjuries(away, i);
+                    Player substitute = calculateInjuries(away, i);
+                    calculateSubstitutionInjury(substitute,away,awayBench, i);
                 }
                 extra += 0.5;
             }
@@ -185,9 +187,9 @@ public class Simulation {
         game.addGameEvent(gameEvent);
     }
 
-
-    public void calculateRedCards(List<Player> team, int minute) {
+    public void calculateRedCards(List<Player> team, List<Player> bench, int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
+        ArrayList<Player> tempBench = new ArrayList<Player>(bench);
         for(Player player:team){
             if(player.getPosition() == Player.Position.DEFENDER) {
                 tempTeam.add(player);
@@ -200,10 +202,51 @@ public class Simulation {
         }
         int rand = ((int)(Math.random()))*tempTeam.size();
         GameEvent gameEvent=new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.RED_CARD);
-
         game.addGameEvent(gameEvent);
+        for(int i = 0; i < team.size(); i++) {
+            if (team.get(i) == tempTeam.get(rand)) {
+                team.remove(i);
+                i--;
+            }
+        }
+        if(tempTeam.get(rand).getPosition() == Player.Position.GOALKEEPER){
+            tempTeam = new ArrayList<Player>(team);
+            for(int i = 0; i < tempBench.size();i++){
+                if(tempBench.get(i).getPosition()!=tempTeam.get(rand).getPosition()){
+                    tempBench.remove(i);
+                    i--;
+                }
+            }
+            if(tempBench.size()==0){
+                tempBench=new ArrayList<Player>(bench);
+            }
+            int max=0;
+            for(int i =0;i<tempBench.size();i++){
+                if(tempBench.get(i).getPrice()>tempBench.get(max).getPrice()){
+                    max=i;
+                }
+            }
+            gameEvent = new GameEvent(minute, tempBench.get(max), GameEvent.Event.SUBSTITUTION_ON);
+            game.addGameEvent(gameEvent);
+            int rand1 = (int)(Math.random())*tempTeam.size();
+            gameEvent = new GameEvent(minute, tempTeam.get(rand1), GameEvent.Event.SUBSTITUTION_OFF);
+            game.addGameEvent(gameEvent);
+            for(int i=0;i<team.size();i++){
+                if(team.get(i)==tempTeam.get(rand1)){
+                    team.remove(i);
+                    break;
+                }
+            }
+            team.add(tempBench.get(max));
+            for(int i=0;i<bench.size();i++){
+                if(bench.get(i)==tempBench.get(max)){
+                    bench.remove(i);
+                    break;
+                }
+            }
+        }
     }
-    public void calculateInjuries(List<Player> team, int minute) {
+    public Player calculateInjuries(List<Player> team, int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team) {
             if(player.getInjuryProne() > 0.7) {
@@ -219,7 +262,11 @@ public class Simulation {
         int rand = ((int)(Math.random()))*tempTeam.size();
         GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.INJURY);
         game.addGameEvent(gameEvent);
+        return tempTeam.get(rand);
     }
+
+
+
     public void calculateOwnGoals(List<Player> team, int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         for(Player player:team){
@@ -235,6 +282,48 @@ public class Simulation {
         int rand = ((int)(Math.random()))*tempTeam.size();
         GameEvent gameEvent=new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.OWN_GOAL);
         game.addGameEvent(gameEvent);
+
+    }
+    public void calculateSubstitutionInjury(Player substitute, List<Player> team, List<Player> bench, int minute) {
+        ArrayList<Player> tempBench = new ArrayList<Player>(bench);
+        GameEvent gameEvent = new GameEvent(minute, substitute, GameEvent.Event.SUBSTITUTION_OFF);
+        game.addGameEvent(gameEvent);
+        for( int i = 0; i < tempBench.size(); i++) {
+            if(tempBench.get(i).getPosition() != substitute.getPosition()) {
+                tempBench.remove(i);
+                i--;
+            }
+        }
+        if (tempBench.size()==0){
+            tempBench=new ArrayList<Player>(bench);
+            for( int i = 0; i < tempBench.size(); i++) {
+                if(tempBench.get(i).getPosition() == Player.Position.GOALKEEPER) {
+                    tempBench.remove(i);
+                    i--;
+                }
+            }
+        }
+        int max = 0;
+        for (int i = 0; i < tempBench.size(); i++) {
+            if(tempBench.get(i).getPrice() > tempBench.get(max).getPrice()) {
+                max = i;
+            }
+        }
+        gameEvent = new GameEvent(minute, tempBench.get(max), GameEvent.Event.SUBSTITUTION_ON);
+        game.addGameEvent(gameEvent);
+        for(int i=0;i<team.size();i++){
+            if(team.get(i)==substitute){
+                team.remove(i);
+                break;
+            }
+        }
+        team.add(tempBench.get(max));
+        for(int i=0;i<bench.size();i++){
+            if(bench.get(i)==tempBench.get(max)){
+                bench.remove(i);
+                break;
+            }
+        }
     }
     //COMMENT
     public void calculateSubstitution(List<Player> team, List<Player> bench,  int minute) {
@@ -249,12 +338,6 @@ public class Simulation {
         int rand = (int) (Math.random()*tempTeam.size());
         GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.SUBSTITUTION_OFF);
         game.addGameEvent(gameEvent);
-        for( int i = 0; i < tempBench.size(); i++) {
-            if(tempBench.get(i).getPosition() == Player.Position.GOALKEEPER) {
-                tempBench.remove(i);
-                i--;
-            }
-        }
         for( int i = 0; i < tempBench.size(); i++) {
             if(tempBench.get(i).getPosition() != tempTeam.get(rand).getPosition()) {
                 tempBench.remove(i);
