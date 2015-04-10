@@ -18,6 +18,7 @@ public class Game {
     public Game(Team homeTeam, Team awayTeam) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        gameEvents = new ArrayList<GameEvent>();
     }
 
     public List<Player> getStartingTeamHome() {
