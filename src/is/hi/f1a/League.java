@@ -153,9 +153,33 @@ public class League {
     private void updatePoints() {
         for(int i = (currentRound-1)*5; i < 5*currentRound; i++) {
             calculatePoints(games.get(i));
+            updateTeamStatistics(games.get(i));
         }
     }
-
+    private void updateTeamStatistics(Game game){
+        int homeGoals = game.getHomeScore();
+        int awayGoals = game.getAwayScore();
+        game.getHomeTeam().setGoalsScored(game.getHomeTeam().getGoalsScored()+homeGoals);
+        game.getHomeTeam().setGoalsConceded(game.getHomeTeam().getGoalsConceded()+awayGoals);
+        game.getAwayTeam().setGoalsScored(game.getAwayTeam().getGoalsScored()+awayGoals);
+        game.getAwayTeam().setGoalsConceded(game.getAwayTeam().getGoalsConceded()+homeGoals);
+        if(homeGoals>awayGoals){
+            game.getHomeTeam().setWins(game.getHomeTeam().getWins()+1);
+            game.getAwayTeam().setLosses(game.getAwayTeam().getLosses()+1);
+            game.getHomeTeam().setPoints(game.getHomeTeam().getPoints()+3);
+        }
+        if(homeGoals<awayGoals){
+            game.getAwayTeam().setWins(game.getAwayTeam().getWins()+1);
+            game.getHomeTeam().setLosses(game.getHomeTeam().getLosses()+1);
+            game.getAwayTeam().setPoints(game.getAwayTeam().getPoints()+3);
+        }
+        if(homeGoals==awayGoals){
+            game.getHomeTeam().setDraws(game.getHomeTeam().getDraws()+1);
+            game.getAwayTeam().setDraws(game.getAwayTeam().getDraws()+1);
+            game.getHomeTeam().setPoints(game.getHomeTeam().getPoints()+1);
+            game.getAwayTeam().setPoints(game.getAwayTeam().getPoints()+1);
+        }
+    }
     private void calculatePoints(Game game){
         game.getHomeTeam().clearRecentPoints();
         game.getAwayTeam().clearRecentPoints();
