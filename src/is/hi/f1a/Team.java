@@ -195,4 +195,11 @@ public class Team {
             p.setRecentPoints(0);
         }
     }
+    public void updateInjuryLength() {
+        for(Player p : players){
+            if(p.getInjuryLength()>0){
+                p.setInjuryLength(p.getInjuryLength()-1);
+            }
+        }
+    }
 }

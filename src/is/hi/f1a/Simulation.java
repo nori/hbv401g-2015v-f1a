@@ -27,6 +27,8 @@ public class Simulation {
         this.away = awayTeam.calculateStartingTeam();
         game.setStartingTeamHome(home);
         game.setStartingTeamAway(away);
+        homeTeam.updateInjuryLength();
+        awayTeam.updateInjuryLength();
     }
 
     public void simulate(){
@@ -45,7 +47,7 @@ public class Simulation {
         }
         for(int i = 1; i <= 90 + extra; i++) {
             double random = Math.random();
-            double a = 0;
+            double skiptip = 0;
             if(random<goalChance/90){
                 double teamRandom = Math.random() + priceFact*2;
                 if(teamRandom > 0.5) {
@@ -57,8 +59,8 @@ public class Simulation {
                 }
                 extra += 0.5;
             }
-            a+=goalChance/90;
-            if(random>=a && random<a+2/90) {
+            skiptip+=goalChance/90;
+            if(random>=skiptip && random<skiptip+2/90) {
                 double teamRandom = Math.random();
                 if(teamRandom > 0.5) {
                     calculateYellowCards(home, i);
@@ -67,8 +69,8 @@ public class Simulation {
                 }
                 extra += 0.1;
             }
-            a+=2/90;
-            if(random>=a && random<a+1/900) {
+            skiptip+=2/90;
+            if(random>=skiptip && random<skiptip+1/900) {
                 double teamRandom = Math.random();
                 if(teamRandom > 0.5) {
                     calculateRedCards(home, homeBench, i);
@@ -77,8 +79,8 @@ public class Simulation {
                 }
                 extra += 0.5;
             }
-            a+=1/900;
-            if(random>=a && random<a+1/900) {
+            skiptip+=1/900;
+            if(random>=skiptip && random<skiptip+1/450) {
                 double teamRandom = Math.random();
                 if(teamRandom > 0.5) {
                     Player substitute = calculateInjuries(home, i);
@@ -89,8 +91,8 @@ public class Simulation {
                 }
                 extra += 0.5;
             }
-            a+=1/900;
-            if(random>=a && random<a+1/1500) {
+            skiptip+=1/900;
+            if(random>=skiptip && random<skiptip+1/1500) {
                 double teamRandom = Math.random();
                 if(teamRandom > 0.5) {
                     calculateOwnGoals(home, i);
@@ -101,14 +103,14 @@ public class Simulation {
                 }
                 extra += 1.0;
             }
-            a+=1/1500;
+            skiptip+=1/1500;
             int timeRemaining = 90-i;
-            if(i > 45 && random <= a && random < a+(3-homeSub)/timeRemaining) {
+            if(i > 45 && random <= skiptip && random < skiptip+(3-homeSub)/timeRemaining) {
                 calculateSubstitution(home, homeBench, i);
                 extra += 0.2;
             }
-            a+=(3-homeSub)/timeRemaining;
-            if(i > 45 && a>=random && random < a+(3-awaySub)/timeRemaining) {
+            skiptip+=(3-homeSub)/timeRemaining;
+            if(i > 45 && skiptip>=random && random < skiptip+(3-awaySub)/timeRemaining) {
                 calculateSubstitution(away, awayBench, i);
                 extra += 0.2;
             }
