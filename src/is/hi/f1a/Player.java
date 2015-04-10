@@ -1,26 +1,14 @@
 package is.hi.f1a;
 
 public class Player {
-    private String name;
-
-    public int getGoalsConceded() {
-        return goalsConceded;
-    }
-
-    public void setGoalsConceded(int goalsConceded) {
-        this.goalsConceded = goalsConceded;
-    }
-
-    public int getOriginalPrice() {
-        return originalPrice;
-    }
-
     public enum Position {
         GOALKEEPER,
         DEFENDER,
         MIDFIELDER,
         FORWARD
     }
+
+    private String name;
     private Position position;
     private int goals;
     private int assists;
@@ -38,10 +26,11 @@ public class Player {
     private int price;
     private int originalPrice;
     private Team team;
+    private String photo;
 
     public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
                   int yellowCards, int redCards, int minutes,
-                  int totalPoints, int price, int goalsConceded) {
+                  int totalPoints, int price, int goalsConceded, String photo) {
         this.name = name;
         this.position = position;
         this.goals = goals;
@@ -55,6 +44,7 @@ public class Player {
         this.originalPrice = price;
         this.price = price;
         this.goalsConceded = goalsConceded;
+        this.photo = "http://cdn.ismfg.net/static/plfpl/img/shirts/photos/" + photo;
     }
 
     public void calculatePrice(IPriceCalculation priceCalculation, double avgPoints, double avgPrice) {
@@ -202,5 +192,21 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public int getGoalsConceded() {
+        return goalsConceded;
+    }
+
+    public void setGoalsConceded(int goalsConceded) {
+        this.goalsConceded = goalsConceded;
+    }
+
+    public int getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public String getPhoto() {
+        return photo;
     }
 }

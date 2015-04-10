@@ -86,6 +86,7 @@ public class DataRetriever {
         String web_name;
         String type_name;
         String team_name;
+        String photo;
         int goals_conceded;
         int goals_scored;
         int yellow_cards;
@@ -158,7 +159,8 @@ public class DataRetriever {
                 p.minutes,
                 p.total_points,
                 p.transfers_out,
-                p.goals_conceded);
+                p.goals_conceded,
+                p.photo);
 
         Team team = getTeam(teams, p.team_name);
         if(team != null) {

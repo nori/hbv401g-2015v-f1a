@@ -119,27 +119,22 @@ public class Team {
         ArrayList<Player> midfielders = new ArrayList<Player>();
         ArrayList<Player> forwards = new ArrayList<Player>();
 
+        System.out.println("calc team: " + name);
         for(Player player : players) {
-            if(player.getPosition() == Player.Position.GOALKEEPER && player.isAvailable())
+            if(player.getPosition() == Player.Position.GOALKEEPER && player.isAvailable()) {
                 goalkeepers.add(player);
-            else if(player.getPosition() == Player.Position.DEFENDER && player.isAvailable())
+            } else if(player.getPosition() == Player.Position.DEFENDER && player.isAvailable()) {
                 defenders.add(player);
-            else if(player.getPosition() == Player.Position.MIDFIELDER && player.isAvailable())
+            } else if(player.getPosition() == Player.Position.MIDFIELDER && player.isAvailable()) {
                 midfielders.add(player);
-            else if(player.getPosition() == Player.Position.FORWARD && player.isAvailable())
+            } else if(player.getPosition() == Player.Position.FORWARD && player.isAvailable()) {
                 forwards.add(player);
+            }
         }
         priceSort(goalkeepers);
         priceSort(defenders);
         priceSort(midfielders);
         priceSort(forwards);
-
-        int numDefs = 4;
-        int numMids = 4;
-        int numFors = 2;
-        int defSubs = 2;
-        int midSubs = 3;
-        int forSubs = 1;
 
         int[][] possibleSetups = new int[][]{
                 {4, 4, 2, 2, 3, 1},
@@ -150,12 +145,15 @@ public class Team {
         };
         int random = (int) (Math.random()*possibleSetups.length);
 
-        numDefs = possibleSetups[random][0];
-        numMids = possibleSetups[random][1];
-        numFors = possibleSetups[random][2];
-        defSubs = possibleSetups[random][3];
-        midSubs = possibleSetups[random][4];
-        forSubs = possibleSetups[random][5];
+        int numDefs = possibleSetups[random][0];
+        int numMids = possibleSetups[random][1];
+        int numFors = possibleSetups[random][2];
+        int defSubs = possibleSetups[random][3];
+        int midSubs = possibleSetups[random][4];
+        int forSubs = possibleSetups[random][5];
+
+        System.out.println("goalies: " + goalkeepers.size() + " defs: " + defenders.size() + " mids: " + midfielders.size() +
+            " forwards: " + forwards.size());
 
         startingTeam.add(goalkeepers.get(0));
         for(int i = 0; i < numDefs; i++) {

@@ -85,21 +85,17 @@ public class League {
                 tempTeams.clear();
             }
         }
-        //víxla öðrum hvjerjum leik
+        //víxla öðrum hverjum leik
         for(int i=0;i<45;i=i+2) {
-            Team homeTeam = new Team("");
-            Team awayTeam = new Team("");
-            homeTeam=games.get(i).getHomeTeam();
-            awayTeam=games.get(i).getAwayTeam();
+            Team homeTeam = games.get(i).getHomeTeam();
+            Team awayTeam = games.get(i).getAwayTeam();
             Game game = new Game(awayTeam,homeTeam);
             games.set(i,game);
         }
         //bæta við seinni umferð
         for(int i=0;i<45;i++){
-            Team homeTeam = new Team("");
-            Team awayTeam = new Team("");
-            homeTeam=games.get(i).getHomeTeam();
-            awayTeam=games.get(i).getAwayTeam();
+            Team homeTeam = games.get(i).getHomeTeam();
+            Team awayTeam = games.get(i).getAwayTeam();
             Game game = new Game(awayTeam,homeTeam);
             games.add(game);
         }
@@ -111,7 +107,7 @@ public class League {
             Simulation s = new Simulation(games.get(i));
             s.simulate();
         }
-        //updatePoints();
+        updatePoints();
         updateSkill();
     }
 
@@ -136,7 +132,13 @@ public class League {
     }
 
     public Team getTeam(String team) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        for (Team t : teams) {
+            if (t.getName().equals(team)) {
+                return t;
+            }
+        }
+
+        return null;
     }
 
     public ArrayList<Team> getTeams() {
@@ -147,7 +149,14 @@ public class League {
         return games;
 
     }
-    private int calculatePoints(Game game){
+
+    private void updatePoints() {
+        for(int i = (currentRound-1)*5; i < 5*currentRound; i++) {
+            calculatePoints(games.get(i));
+        }
+    }
+
+    private void calculatePoints(Game game){
         game.getHomeTeam().clearRecentPoints();
         game.getAwayTeam().clearRecentPoints();
         for(Player p:game.getStartingTeamHome()){
@@ -232,5 +241,6 @@ public class League {
                 }
 
             }
+
     }
 }
