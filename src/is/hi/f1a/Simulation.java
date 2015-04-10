@@ -245,19 +245,30 @@ public class Simulation {
                 tempTeam.remove(i);
                 i--;
             }
-
         }
         int rand = (int) (Math.random()*tempTeam.size());
         GameEvent gameEvent = new GameEvent(minute, tempTeam.get(rand), GameEvent.Event.SUBSTITUTION_OFF);
         game.addGameEvent(gameEvent);
         for( int i = 0; i < tempBench.size(); i++) {
-            if(tempTeam.get(i).getPosition() != tempTeam.get(rand).getPosition()) {
-                tempTeam.remove(i);
+            if(tempBench.get(i).getPosition() == Player.Position.GOALKEEPER) {
+                tempBench.remove(i);
+                i--;
+            }
+        }
+        for( int i = 0; i < tempBench.size(); i++) {
+            if(tempBench.get(i).getPosition() != tempTeam.get(rand).getPosition()) {
+                tempBench.remove(i);
                 i--;
             }
         }
         if (tempBench.size()==0){
             tempBench=new ArrayList<Player>(bench);
+            for( int i = 0; i < tempBench.size(); i++) {
+                if(tempBench.get(i).getPosition() == Player.Position.GOALKEEPER) {
+                    tempBench.remove(i);
+                    i--;
+                }
+            }
         }
         int max = 0;
         for (int i = 0; i < tempBench.size(); i++) {
