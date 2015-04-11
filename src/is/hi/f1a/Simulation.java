@@ -123,31 +123,31 @@ public class Simulation {
     }
     public void calculateGoals(List<Player> team, int minute) {
         ArrayList<Player> tempTeamGoal = new ArrayList<Player>(team);
-        for(Player player:team){
+        for(Player player : team){
             if(player.getPosition() == Player.Position.MIDFIELDER) {
                 tempTeamGoal.add(player);
             }
             if(player.getPosition() == Player.Position.FORWARD) {
                 tempTeamGoal.add(player);
                 tempTeamGoal.add(player);
-                if(player.getPrice()>= 8) {
+                if(player.getPrice() >= 8) {
                     tempTeamGoal.add(player);
                 }
             }
-            if(player.getPrice()>= 7) {
+            if(player.getPrice() >= 7) {
                 tempTeamGoal.add(player);
             }
-            if(player.getPrice()>= 10) {
+            if(player.getPrice() >= 10) {
                 tempTeamGoal.add(player);
             }
         }
-        for(int i = 0;i<tempTeamGoal.size();i++){
+        for(int i = 0; i < tempTeamGoal.size(); i++){
             if(tempTeamGoal.get(i).getPosition()== Player.Position.GOALKEEPER) {
                 tempTeamGoal.remove(i);
                 i--;
             }
         }
-        int rand = ((int)(Math.random()))*tempTeamGoal.size();
+        int rand = (int) (Math.random()*tempTeamGoal.size());
         GameEvent gameEvent = new GameEvent(minute,tempTeamGoal.get(rand), GameEvent.Event.GOAL);
         game.addGameEvent(gameEvent);
         //calculate assist:
@@ -163,20 +163,20 @@ public class Simulation {
                 tempTeamAssist.add(player);
             }
         }
-        for(int i = 0;i<tempTeamAssist.size();i++){
-            if(tempTeamAssist.get(i).getPosition()== Player.Position.GOALKEEPER) {
+
+        for(int i = 0; i < tempTeamAssist.size(); i++) {
+            if(tempTeamAssist.get(i).getPosition() == Player.Position.GOALKEEPER) {
                 tempTeamAssist.remove(i);
                 i--;
-            }
-            if(tempTeamAssist.get(i)==tempTeamGoal.get(rand)) {
-                tempTeamGoal.remove(i);
+            } else if(tempTeamAssist.get(i) == tempTeamGoal.get(rand)) {
+                tempTeamAssist.remove(i);
                 i--;
             }
         }
 
         double r = Math.random();
-        rand = ((int)r)*tempTeamAssist.size();
-        if(r<0.8) {
+        rand = (int) (r*tempTeamAssist.size());
+        if(r < 0.8) {
             gameEvent = new GameEvent(minute, tempTeamAssist.get(rand), GameEvent.Event.ASSIST);
             game.addGameEvent(gameEvent);
         }
