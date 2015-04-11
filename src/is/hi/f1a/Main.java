@@ -13,6 +13,9 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             System.out.println(i+1 + ". " + league.getGames().get(i).getHomeTeam().getName() + " " + league.getGames().get(i).getHomeScore()
                     + " : " + league.getGames().get(i).getAwayScore() + " " + league.getGames().get(i).getAwayTeam().getName());
+            for(GameEvent g : league.getGames().get(i).getGameEvents()) {
+                System.out.println(g.toString());
+            }
         }
     }
 }

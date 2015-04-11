@@ -143,14 +143,18 @@ public class Team {
                 {4, 3, 3, 2, 2, 2},
                 {3, 5, 2, 2, 3, 1},
         };
-        int random = (int) (Math.random()*possibleSetups.length);
+        int random, numDefs = 100, numMids = 100, numFors = 100, defSubs = 100, midSubs = 100, forSubs = 100;
 
-        int numDefs = possibleSetups[random][0];
-        int numMids = possibleSetups[random][1];
-        int numFors = possibleSetups[random][2];
-        int defSubs = possibleSetups[random][3];
-        int midSubs = possibleSetups[random][4];
-        int forSubs = possibleSetups[random][5];
+        while (numDefs + defSubs > defenders.size() || numMids + midSubs  > midfielders.size() || numFors + forSubs > forwards.size()) {
+            random = (int) (Math.random()*possibleSetups.length);
+
+            numDefs = possibleSetups[random][0];
+            numMids = possibleSetups[random][1];
+            numFors = possibleSetups[random][2];
+            defSubs = possibleSetups[random][3];
+            midSubs = possibleSetups[random][4];
+            forSubs = possibleSetups[random][5];
+        }
 
         System.out.println("goalies: " + goalkeepers.size() + " defs: " + defenders.size() + " mids: " + midfielders.size() +
             " forwards: " + forwards.size());
@@ -166,7 +170,9 @@ public class Team {
             startingTeam.add(forwards.get(i));
         }
 
-        startingTeam.add(goalkeepers.get(1));
+        if (goalkeepers.size() > 1) {
+            startingTeam.add(goalkeepers.get(1));
+        }
         for(int i = 0; i < defSubs; i++){
             startingTeam.add(defenders.get(i+numDefs-1));
         }
