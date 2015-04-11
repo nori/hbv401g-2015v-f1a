@@ -47,6 +47,12 @@ public class Player {
         this.photo = "http://cdn.ismfg.net/static/plfpl/img/shirts/photos/" + photo;
     }
 
+    public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
+                  int yellowCards, int redCards, int minutes,
+                  int totalPoints, int price, int goalsConceded) {
+        this(name, position, goals, assists, cleanSheet, ownGoals, yellowCards, redCards, minutes, totalPoints, price, goalsConceded, "");
+    }
+
     public void calculatePrice(IPriceCalculation priceCalculation, double avgPoints, double avgPrice) {
         price = priceCalculation.calculatePrice(this, avgPoints, avgPrice);
     }
