@@ -145,7 +145,8 @@ public class Team {
         };
         int random, numDefs = 100, numMids = 100, numFors = 100, defSubs = 100, midSubs = 100, forSubs = 100;
 
-        while (numDefs + defSubs > defenders.size() || numMids + midSubs  > midfielders.size() || numFors + forSubs > forwards.size()) {
+        int tries = 0;
+        while (tries < 10 && (numDefs + defSubs > defenders.size() || numMids + midSubs  > midfielders.size() || numFors + forSubs > forwards.size())) {
             random = (int) (Math.random()*possibleSetups.length);
 
             numDefs = possibleSetups[random][0];
@@ -154,6 +155,22 @@ public class Team {
             defSubs = possibleSetups[random][3];
             midSubs = possibleSetups[random][4];
             forSubs = possibleSetups[random][5];
+            tries++;
+        }
+
+        // If too many are injured or banned we just make them available
+        if(tries == 10 || goalkeepers.size() == 0) {
+            for(Player player : players) {
+                if(player.getPosition() == Player.Position.GOALKEEPER && goalkeepers.size() < 1) {
+                    goalkeepers.add(player);
+                } else if(player.getPosition() == Player.Position.DEFENDER && defenders.size() < numDefs + defSubs) {
+                    defenders.add(player);
+                } else if(player.getPosition() == Player.Position.MIDFIELDER && midfielders.size() < numMids + midSubs) {
+                    midfielders.add(player);
+                } else if(player.getPosition() == Player.Position.FORWARD && forwards.size() < numFors + forSubs) {
+                    forwards.add(player);
+                }
+            }
         }
 
         System.out.println("goalies: " + goalkeepers.size() + " defs: " + defenders.size() + " mids: " + midfielders.size() +
