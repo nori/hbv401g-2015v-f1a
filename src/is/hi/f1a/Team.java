@@ -121,13 +121,13 @@ public class Team {
 
         System.out.println("calc team: " + name);
         for(Player player : players) {
-            if(player.getPosition() == Player.Position.GOALKEEPER && player.isAvailable()) {
+            if(player.getPosition() == Player.Position.GOALKEEPER && player.isAvailable(true)) {
                 goalkeepers.add(player);
-            } else if(player.getPosition() == Player.Position.DEFENDER && player.isAvailable()) {
+            } else if(player.getPosition() == Player.Position.DEFENDER && player.isAvailable(true)) {
                 defenders.add(player);
-            } else if(player.getPosition() == Player.Position.MIDFIELDER && player.isAvailable()) {
+            } else if(player.getPosition() == Player.Position.MIDFIELDER && player.isAvailable(true)) {
                 midfielders.add(player);
-            } else if(player.getPosition() == Player.Position.FORWARD && player.isAvailable()) {
+            } else if(player.getPosition() == Player.Position.FORWARD && player.isAvailable(true)) {
                 forwards.add(player);
             }
         }

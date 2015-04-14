@@ -127,13 +127,13 @@ public class Player {
         this.minutes = minutes;
     }
 
-    public boolean isAvailable() {
+    public boolean isAvailable(boolean resetCards) {
         if(yellowCards == 5) {
-            yellowCards = 0;
+            if(resetCards) yellowCards = 0;
             return false;
         }
         else if(redCards == 1) {
-            redCards = 0;
+        	if(resetCards) redCards = 0;
             return false;
         }
         else if(injuryLength > 0) {
@@ -142,7 +142,6 @@ public class Player {
         else {
             return true;
         }
-
     }
 
 
