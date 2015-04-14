@@ -6,6 +6,11 @@ public class Main {
         FantasyFootballBackend fantasyFootballBackend = FantasyFootballBackend.getInstance();
         League league = fantasyFootballBackend.getLeague();
         System.out.println(league.getTeams());
+        for (Team t : league.getTeams()) {
+            for (Player p : t.getPlayers()) {
+                System.out.println("Price: " + p.getPrice());
+            }
+        }
 //        for (int i = 0; i < 90; i++) {
 //            System.out.println(i+1 + ". " + league.getGames().get(i).getHomeTeam().getName() + " : " + league.getGames().get(i).getAwayTeam().getName());
 //        }
@@ -13,9 +18,9 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             System.out.println(i+1 + ". " + league.getGames().get(i).getHomeTeam().getName() + " " + league.getGames().get(i).getHomeScore()
                     + " : " + league.getGames().get(i).getAwayScore() + " " + league.getGames().get(i).getAwayTeam().getName());
-            for(GameEvent g : league.getGames().get(i).getGameEvents()) {
-                System.out.println(g.toString());
-            }
+//            for(GameEvent g : league.getGames().get(i).getGameEvents()) {
+//                System.out.println(g.toString());
+//            }
         }
     }
 }

@@ -96,7 +96,7 @@ public class DataRetriever {
         int own_goals;
         int minutes;
         int total_points;
-        int transfers_out;
+        int now_cost;
     }
 
     private static class JSONRanking {
@@ -158,7 +158,7 @@ public class DataRetriever {
                 p.red_cards,
                 p.minutes,
                 p.total_points,
-                p.transfers_out,
+                p.now_cost,
                 p.goals_conceded,
                 p.photo);
 
