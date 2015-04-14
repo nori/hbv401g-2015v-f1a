@@ -128,7 +128,7 @@ public class Player {
     }
 
     public boolean isAvailable(boolean resetCards) {
-        if(yellowCards == 5) {
+        if(yellowCards >= 5) {
             if(resetCards) yellowCards = 0;
             return false;
         }
