@@ -1,6 +1,7 @@
 package is.hi.f1a;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by arnor on 3/4/15.
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 public class Game {
     private Team homeTeam;
     private Team awayTeam;
+    private List<Player> startingTeamHome;
+    private List<Player> startingTeamAway;
     private int homeScore;
     private int awayScore;
     private ArrayList<GameEvent> gameEvents;
@@ -15,6 +18,23 @@ public class Game {
     public Game(Team homeTeam, Team awayTeam) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        gameEvents = new ArrayList<GameEvent>();
+    }
+
+    public List<Player> getStartingTeamHome() {
+        return startingTeamHome;
+    }
+
+    public void setStartingTeamHome(List<Player> startingTeamHome) {
+        this.startingTeamHome = startingTeamHome;
+    }
+
+    public List<Player> getStartingTeamAway() {
+        return startingTeamAway;
+    }
+
+    public void setStartingTeamAway(List<Player> startingTeamAway) {
+        this.startingTeamAway = startingTeamAway;
     }
 
     public Team getHomeTeam() {
@@ -44,5 +64,9 @@ public class Game {
 
     public void addGameEvent(GameEvent gameEvent) {
         gameEvents.add(gameEvent);
+    }
+
+    public ArrayList<GameEvent> getGameEvents() {
+        return gameEvents;
     }
 }

@@ -89,7 +89,7 @@ public class Team {
     private Player bestPlayer(ArrayList<Player> players) {
         int tmp = 0;
         for(int i = 1; i < players.size(); i++) {
-            if(players.get(i).getPrice()>= players.get(tmp).getPrice()){
+            if(players.get(i).getSkill()>= players.get(tmp).getSkill()){
                 tmp = i;
             }
         }
@@ -101,9 +101,9 @@ public class Team {
     {
         Collections.sort(players, new Comparator<Player>() {
             public int compare(Player p1, Player p2) {
-                if (p1.getPrice() > p2.getPrice()) {
+                if (p1.getSkill() > p2.getSkill()) {
                     return -1;
-                } else if (p2.getPrice() > p1.getPrice()) {
+                } else if (p2.getSkill() > p1.getSkill()) {
                     return 1;
                 } else {
                     return 0;
@@ -119,27 +119,22 @@ public class Team {
         ArrayList<Player> midfielders = new ArrayList<Player>();
         ArrayList<Player> forwards = new ArrayList<Player>();
 
+        System.out.println("calc team: " + name);
         for(Player player : players) {
-            if(player.getPosition() == Player.Position.GOALKEEPER && player.isAvailable())
+            if(player.getPosition() == Player.Position.GOALKEEPER && player.isAvailable()) {
                 goalkeepers.add(player);
-            else if(player.getPosition() == Player.Position.DEFENDER && player.isAvailable())
+            } else if(player.getPosition() == Player.Position.DEFENDER && player.isAvailable()) {
                 defenders.add(player);
-            else if(player.getPosition() == Player.Position.MIDFIELDER && player.isAvailable())
+            } else if(player.getPosition() == Player.Position.MIDFIELDER && player.isAvailable()) {
                 midfielders.add(player);
-            else if(player.getPosition() == Player.Position.FORWARD && player.isAvailable())
+            } else if(player.getPosition() == Player.Position.FORWARD && player.isAvailable()) {
                 forwards.add(player);
+            }
         }
         priceSort(goalkeepers);
         priceSort(defenders);
         priceSort(midfielders);
         priceSort(forwards);
-
-        int numDefs = 4;
-        int numMids = 4;
-        int numFors = 2;
-        int defSubs = 2;
-        int midSubs = 3;
-        int forSubs = 1;
 
         int[][] possibleSetups = new int[][]{
                 {4, 4, 2, 2, 3, 1},
@@ -148,14 +143,38 @@ public class Team {
                 {4, 3, 3, 2, 2, 2},
                 {3, 5, 2, 2, 3, 1},
         };
-        int random = (int) (Math.random()*possibleSetups.length);
+        int random, numDefs = 100, numMids = 100, numFors = 100, defSubs = 100, midSubs = 100, forSubs = 100;
 
-        numDefs = possibleSetups[random][0];
-        numMids = possibleSetups[random][1];
-        numFors = possibleSetups[random][2];
-        defSubs = possibleSetups[random][3];
-        midSubs = possibleSetups[random][4];
-        forSubs = possibleSetups[random][5];
+        int tries = 0;
+        while (tries < 10 && (numDefs + defSubs > defenders.size() || numMids + midSubs  > midfielders.size() || numFors + forSubs > forwards.size())) {
+            random = (int) (Math.random()*possibleSetups.length);
+
+            numDefs = possibleSetups[random][0];
+            numMids = possibleSetups[random][1];
+            numFors = possibleSetups[random][2];
+            defSubs = possibleSetups[random][3];
+            midSubs = possibleSetups[random][4];
+            forSubs = possibleSetups[random][5];
+            tries++;
+        }
+
+        // If too many are injured or banned we just make them available
+        if(tries == 10 || goalkeepers.size() == 0) {
+            for(Player player : players) {
+                if(player.getPosition() == Player.Position.GOALKEEPER && goalkeepers.size() < 1) {
+                    goalkeepers.add(player);
+                } else if(player.getPosition() == Player.Position.DEFENDER && defenders.size() < numDefs + defSubs) {
+                    defenders.add(player);
+                } else if(player.getPosition() == Player.Position.MIDFIELDER && midfielders.size() < numMids + midSubs) {
+                    midfielders.add(player);
+                } else if(player.getPosition() == Player.Position.FORWARD && forwards.size() < numFors + forSubs) {
+                    forwards.add(player);
+                }
+            }
+        }
+
+        System.out.println("goalies: " + goalkeepers.size() + " defs: " + defenders.size() + " mids: " + midfielders.size() +
+            " forwards: " + forwards.size());
 
         startingTeam.add(goalkeepers.get(0));
         for(int i = 0; i < numDefs; i++) {
@@ -168,7 +187,9 @@ public class Team {
             startingTeam.add(forwards.get(i));
         }
 
-        startingTeam.add(goalkeepers.get(1));
+        if (goalkeepers.size() > 1) {
+            startingTeam.add(goalkeepers.get(1));
+        }
         for(int i = 0; i < defSubs; i++){
             startingTeam.add(defenders.get(i+numDefs-1));
         }
@@ -186,9 +207,22 @@ public class Team {
     public int getPrice() {
         int sum = 0;
         for(Player p : players) {
-            sum += p.getPrice();
+            sum += p.getSkill();
         }
 
         return sum;
+    }
+
+    public void clearRecentPoints() {
+        for(Player p : players) {
+            p.setRecentPoints(0);
+        }
+    }
+    public void updateInjuryLength() {
+        for(Player p : players){
+            if(p.getInjuryLength()>0){
+                p.setInjuryLength(p.getInjuryLength()-1);
+            }
+        }
     }
 }

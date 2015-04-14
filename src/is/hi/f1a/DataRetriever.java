@@ -86,6 +86,7 @@ public class DataRetriever {
         String web_name;
         String type_name;
         String team_name;
+        String photo;
         int goals_conceded;
         int goals_scored;
         int yellow_cards;
@@ -95,7 +96,7 @@ public class DataRetriever {
         int own_goals;
         int minutes;
         int total_points;
-        int transfers_out;
+        int now_cost;
     }
 
     private static class JSONRanking {
@@ -157,8 +158,9 @@ public class DataRetriever {
                 p.red_cards,
                 p.minutes,
                 p.total_points,
-                p.transfers_out,
-                p.goals_conceded);
+                p.now_cost,
+                p.goals_conceded,
+                p.photo);
 
         Team team = getTeam(teams, p.team_name);
         if(team != null) {

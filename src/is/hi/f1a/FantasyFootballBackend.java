@@ -13,13 +13,17 @@ public class FantasyFootballBackend {
 	}
     
     private FantasyFootballBackend() {
+        restart();
+    }
+
+    public void restart() {
         ArrayList<Team> teams = null;
-		try {
-			teams = DataRetriever.getTeams();
-			DataRetriever.addPlayers(teams);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        try {
+            teams = DataRetriever.getTeams();
+            DataRetriever.addPlayers(teams);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         league = new League(teams);
     }
 
@@ -28,6 +32,6 @@ public class FantasyFootballBackend {
     }
 
     private void nextRound() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        league.playNextRound();
     }
 }

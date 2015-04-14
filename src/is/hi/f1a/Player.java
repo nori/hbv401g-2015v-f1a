@@ -1,26 +1,14 @@
 package is.hi.f1a;
 
 public class Player {
-    private String name;
-
-    public int getGoalsConceded() {
-        return goalsConceded;
-    }
-
-    public void setGoalsConceded(int goalsConceded) {
-        this.goalsConceded = goalsConceded;
-    }
-
-    public int getOriginalPrice() {
-        return originalPrice;
-    }
-
     public enum Position {
         GOALKEEPER,
         DEFENDER,
         MIDFIELDER,
         FORWARD
     }
+
+    private String name;
     private Position position;
     private int goals;
     private int assists;
@@ -35,13 +23,15 @@ public class Player {
     private int totalPoints;
     private int recentPoints;
     private int games;
-    private int price;
+    private int skill;
     private int originalPrice;
+    private int price;
     private Team team;
+    private String photo;
 
     public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
                   int yellowCards, int redCards, int minutes,
-                  int totalPoints, int price, int goalsConceded) {
+                  int totalPoints, int price, int goalsConceded, String photo) {
         this.name = name;
         this.position = position;
         this.goals = goals;
@@ -54,11 +44,19 @@ public class Player {
         this.totalPoints = totalPoints;
         this.originalPrice = price;
         this.price = price;
+        this.skill = price;
         this.goalsConceded = goalsConceded;
+        this.photo = "http://cdn.ismfg.net/static/plfpl/img/shirts/photos/" + photo;
     }
 
-    public void calculatePrice(IPriceCalculation priceCalculation, double avgPoints, double avgPrice) {
-        price = priceCalculation.calculatePrice(this, avgPoints, avgPrice);
+    public Player(String name, Position position, int goals, int assists, int cleanSheet, int ownGoals,
+                  int yellowCards, int redCards, int minutes,
+                  int totalPoints, int skill, int goalsConceded) {
+        this(name, position, goals, assists, cleanSheet, ownGoals, yellowCards, redCards, minutes, totalPoints, skill, goalsConceded, "");
+    }
+
+    public void calculateSkill(ISkillCalculation SkillCalculation, double avgPoints, double avgSkill) {
+        skill = SkillCalculation.calculateSkill(this, avgPoints, avgSkill);
     }
 
     public String toString() {
@@ -188,12 +186,12 @@ public class Player {
         this.games = games;
     }
 
-    public int getPrice() {
-        return price;
+    public int getSkill() {
+        return skill;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setSkill(int skill) {
+        this.skill = skill;
     }
 
     public Team getTeam() {
@@ -202,5 +200,37 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public int getGoalsConceded() {
+        return goalsConceded;
+    }
+
+    public void setGoalsConceded(int goalsConceded) {
+        this.goalsConceded = goalsConceded;
+    }
+
+    public int getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void playerBought() {
+        price += 0.1*originalPrice;
+    }
+
+    public void playerSold() {
+        price -= 0.1*originalPrice;
     }
 }
