@@ -130,14 +130,14 @@ public class Simulation {
             if(player.getPosition() == Player.Position.FORWARD) {
                 tempTeamGoal.add(player);
                 tempTeamGoal.add(player);
-                if(player.getPrice() >= 8) {
+                if(player.getSkill() >= 8) {
                     tempTeamGoal.add(player);
                 }
             }
-            if(player.getPrice() >= 7) {
+            if(player.getSkill() >= 7) {
                 tempTeamGoal.add(player);
             }
-            if(player.getPrice() >= 10) {
+            if(player.getSkill() >= 10) {
                 tempTeamGoal.add(player);
             }
         }
@@ -156,10 +156,10 @@ public class Simulation {
             if(player.getPosition() == Player.Position.MIDFIELDER||player.getPosition() == Player.Position.FORWARD) {
                 tempTeamAssist.add(player);
             }
-            if(player.getPrice()>= 7) {
+            if(player.getSkill()>= 7) {
                 tempTeamAssist.add(player);
             }
-            if(player.getPrice()>= 10) {
+            if(player.getSkill()>= 10) {
                 tempTeamAssist.add(player);
             }
         }
@@ -235,7 +235,7 @@ public class Simulation {
             }
             int max=0;
             for(int i =0;i<tempBench.size();i++){
-                if(tempBench.get(i).getPrice()>tempBench.get(max).getPrice()){
+                if(tempBench.get(i).getSkill()>tempBench.get(max).getSkill()){
                     max=i;
                 }
             }
@@ -318,7 +318,7 @@ public class Simulation {
         }
         int max = 0;
         for (int i = 0; i < tempBench.size(); i++) {
-            if(tempBench.get(i).getPrice() > tempBench.get(max).getPrice()) {
+            if(tempBench.get(i).getSkill() > tempBench.get(max).getSkill()) {
                 max = i;
             }
         }
@@ -369,7 +369,7 @@ public class Simulation {
         }
         int max = 0;
         for (int i = 0; i < tempBench.size(); i++) {
-            if (tempBench.get(i).getPrice() > tempBench.get(max).getPrice()) {
+            if (tempBench.get(i).getSkill() > tempBench.get(max).getSkill()) {
                 max = i;
             }
         }

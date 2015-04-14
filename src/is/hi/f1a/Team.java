@@ -89,7 +89,7 @@ public class Team {
     private Player bestPlayer(ArrayList<Player> players) {
         int tmp = 0;
         for(int i = 1; i < players.size(); i++) {
-            if(players.get(i).getPrice()>= players.get(tmp).getPrice()){
+            if(players.get(i).getSkill()>= players.get(tmp).getSkill()){
                 tmp = i;
             }
         }
@@ -101,9 +101,9 @@ public class Team {
     {
         Collections.sort(players, new Comparator<Player>() {
             public int compare(Player p1, Player p2) {
-                if (p1.getPrice() > p2.getPrice()) {
+                if (p1.getSkill() > p2.getSkill()) {
                     return -1;
-                } else if (p2.getPrice() > p1.getPrice()) {
+                } else if (p2.getSkill() > p1.getSkill()) {
                     return 1;
                 } else {
                     return 0;
@@ -190,7 +190,7 @@ public class Team {
     public int getPrice() {
         int sum = 0;
         for(Player p : players) {
-            sum += p.getPrice();
+            sum += p.getSkill();
         }
 
         return sum;

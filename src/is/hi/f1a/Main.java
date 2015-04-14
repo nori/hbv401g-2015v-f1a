@@ -8,7 +8,7 @@ public class Main {
         System.out.println(league.getTeams());
         for (Team t : league.getTeams()) {
             for (Player p : t.getPlayers()) {
-                System.out.println("Price: " + p.getPrice());
+                System.out.println("Price: " + p.getSkill());
             }
         }
 //        for (int i = 0; i < 90; i++) {

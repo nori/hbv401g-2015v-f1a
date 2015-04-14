@@ -10,12 +10,12 @@ public class League {
     private ArrayList<Game> games;
     private int currentRound;
     private Simulation simulation;
-    private PriceCalculation pCalc;
+    private SkillCalculation pCalc;
 
     public League(ArrayList<Team> teams) {
         this.games = new ArrayList<Game>();
         this.teams = teams;
-        pCalc = new PriceCalculation();
+        pCalc = new SkillCalculation();
         createSchedule();
     }
 
@@ -119,14 +119,14 @@ public class League {
         for(Team t: teams){
             for(Player p: t.getPlayers()){
                 sumPoints += p.getRecentPoints();
-                sumSkill += p.getPrice();
+                sumSkill += p.getSkill();
                 count++;
             }
         }
 
         for(Team t: teams){
             for(Player p: t.getPlayers()){
-                p.calculatePrice(pCalc, (double)sumPoints/count, (double)sumSkill/count);
+                p.calculateSkill(pCalc, (double) sumPoints / count, (double) sumSkill / count);
             }
         }
     }
