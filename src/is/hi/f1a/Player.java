@@ -38,8 +38,8 @@ public class Player {
         this.assists = assists;
         this.cleanSheet = cleanSheet;
         this.ownGoals = ownGoals;
-        this.yellowCards = yellowCards;
-        this.redCards = redCards;
+        this.yellowCards = 0;
+        this.redCards = 0;
         this.minutes = minutes;
         this.totalPoints = totalPoints;
         this.originalPrice = price;

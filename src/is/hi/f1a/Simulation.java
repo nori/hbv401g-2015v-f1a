@@ -184,7 +184,7 @@ public class Simulation {
 
     public void calculateYellowCards(List<Player> team, int minute) {
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
-        for(Player player:team){
+        for(Player player : team){
             if(player.getPosition() == Player.Position.DEFENDER) {
                 tempTeam.add(player);
             }
@@ -195,9 +195,20 @@ public class Simulation {
             }
         }
         int rand = ((int)(Math.random()))*tempTeam.size();
-        GameEvent gameEvent = new GameEvent(minute,tempTeam.get(rand), GameEvent.Event.YELLOW_CARD);
-
-        game.addGameEvent(gameEvent);
+        Player p = tempTeam.get(rand);
+        GameEvent removedGameEvent = null;
+        for (GameEvent gameEvent : game.getGameEvents()) {
+            if (gameEvent.getPlayer() == p && gameEvent.getEvent() == GameEvent.Event.YELLOW_CARD) {
+                removedGameEvent = gameEvent;
+            }
+        }
+        if (removedGameEvent != null) {
+            game.getGameEvents().remove(removedGameEvent);
+            game.addGameEvent(new GameEvent(minute, p, GameEvent.Event.RED_CARD));
+            team.remove(p);
+        } else {
+            game.addGameEvent(new GameEvent(minute, p, GameEvent.Event.YELLOW_CARD));
+        }
     }
 
     public void calculateRedCards(List<Player> team, ArrayList<Player> bench, int minute) {
