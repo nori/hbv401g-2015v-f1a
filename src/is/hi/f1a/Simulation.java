@@ -16,8 +16,8 @@ public class Simulation {
 
     public Simulation(Game game) {
         this.game = game;
-        this.awayTeam = this.game.getHomeTeam();
-        this.homeTeam = this.game.getAwayTeam();
+        this.awayTeam = this.game.getAwayTeam();
+        this.homeTeam = this.game.getHomeTeam();
         this.home = homeTeam.calculateStartingTeam();
         this.homeBench = new ArrayList<Player>(home.subList(11, home.size()));
         this.home = new ArrayList<Player>(home.subList(0, 11));
@@ -55,6 +55,7 @@ public class Simulation {
                 if(teamRandom > 0.5) {
                     calculateGoals(home, i);
                     game.setHomeScore(game.getHomeScore() + 1);
+                    System.out.println("home goal: "+game.getHomeScore());
                 } else {
                     calculateGoals(away, i);
                     game.setAwayScore(game.getAwayScore() + 1);
