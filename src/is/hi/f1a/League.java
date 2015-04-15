@@ -195,7 +195,6 @@ public class League {
         }
         for(GameEvent gameEvent: game.getGameEvents()){
             Player p = gameEvent.getPlayer();
-            System.out.println("min: "+gameEvent.getMinute()+", Player: "+p.getName()+", Game event: "+gameEvent.getEvent().name());
             if(gameEvent.getEvent() == GOAL){
                 if(p.getPosition() == DEFENDER) {
                     p.setGoals(p.getGoals() + 1);

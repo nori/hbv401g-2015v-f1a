@@ -24,9 +24,6 @@ public class Simulation {
         this.away = awayTeam.calculateStartingTeam();
         this.awayBench = new ArrayList<Player>(away.subList(11, away.size()));
         this.away = new ArrayList<Player>(away.subList(0, 11));
-        this.away = awayTeam.calculateStartingTeam();
-        System.out.println("Simulating game " + homeTeam.getName() + " vs " + awayTeam.getName());
-        System.out.println("HomeBench size: " + homeBench.size() + " awayBench size: " + awayBench.size());
         game.setStartingTeamHome(home);
         game.setStartingTeamAway(away);
         homeTeam.updateInjuryLength();
@@ -34,8 +31,15 @@ public class Simulation {
     }
 
     public void simulate(){
-        //throw new UnsupportedOperationException("Not implemented yet");
-        double priceFact = (homeTeam.getPrice()-awayTeam.getPrice())/(homeTeam.getPrice()+awayTeam.getPrice());
+        double homeSkill = 0;
+        for (Player p : home) {
+            homeSkill += p.getSkill();
+        }
+        double awaySkill = 0;
+        for (Player p : away) {
+            awaySkill += p.getSkill();
+        }
+        double priceFact = 1.5*(homeSkill-awaySkill)/(homeSkill+awaySkill);
         int goalChance = 3;
         double extra = 0;
         if (Math.abs(priceFact) > 0.3)  {
@@ -55,7 +59,6 @@ public class Simulation {
                 if(teamRandom > 0.5) {
                     calculateGoals(home, i);
                     game.setHomeScore(game.getHomeScore() + 1);
-                    System.out.println("home goal: "+game.getHomeScore());
                 } else {
                     calculateGoals(away, i);
                     game.setAwayScore(game.getAwayScore() + 1);
@@ -352,7 +355,6 @@ public class Simulation {
     }
     //COMMENT
     public void calculateSubstitution(List<Player> team, ArrayList<Player> bench, int minute) {
-        System.out.println("Bench size: " + bench.size());
         ArrayList<Player> tempTeam = new ArrayList<Player>(team);
         ArrayList<Player> tempBench = new ArrayList<Player>(bench);
         for( int i = 0; i < tempTeam.size(); i++) {

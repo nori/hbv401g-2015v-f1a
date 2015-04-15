@@ -119,7 +119,6 @@ public class Team {
         ArrayList<Player> midfielders = new ArrayList<Player>();
         ArrayList<Player> forwards = new ArrayList<Player>();
 
-        System.out.println("calc team: " + name);
         for(Player player : players) {
             if(player.getPosition() == Player.Position.GOALKEEPER && player.isAvailable(true)) {
                 goalkeepers.add(player);
@@ -173,9 +172,6 @@ public class Team {
             }
         }
 
-        System.out.println("goalies: " + goalkeepers.size() + " defs: " + defenders.size() + " mids: " + midfielders.size() +
-            " forwards: " + forwards.size());
-
         startingTeam.add(goalkeepers.get(0));
         for(int i = 0; i < numDefs; i++) {
             startingTeam.add(defenders.get(i));
@@ -204,7 +200,7 @@ public class Team {
         return startingTeam;
     }
 
-    public int getPrice() {
+    public int getSkill() {
         int sum = 0;
         for(Player p : players) {
             sum += p.getSkill();
